@@ -91,6 +91,17 @@
                 },
                 {
                     "name": "",
+                    "id": "d1854fac-9252-4a20-b8be-b676f6a12e53",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "edb477f6-2122-40b6-bbf4-c5a869297cd5",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -102,8 +113,30 @@
                 },
                 {
                     "name": "",
+                    "id": "2bac254d-fd3d-4f71-bc5e-34fba4d54fb5",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "3154a78a-3ffa-482c-8c71-557f40dc8694",
                     "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "802588ae-48f8-4c5e-97c0-a9bdd8214db7",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
