@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Fan",
+                    "type": "Value",
+                    "id": "fd14ec37-aece-4187-be55-9ba619d5f898",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -114,7 +123,7 @@
                 {
                     "name": "",
                     "id": "2bac254d-fd3d-4f71-bc5e-34fba4d54fb5",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -136,11 +145,22 @@
                 {
                     "name": "",
                     "id": "802588ae-48f8-4c5e-97c0-a9bdd8214db7",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4faad5b3-feb5-4aba-b87d-cbfb452e97e8",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fan",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
