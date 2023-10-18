@@ -206,8 +206,6 @@ GameObject:
   - component: {fileID: 4543124169489357562}
   - component: {fileID: 8095707129505713228}
   - component: {fileID: 1712433157382054058}
-  - component: {fileID: 8001114762004855144}
-  - component: {fileID: 8018877829424905006}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -308,8 +306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 8095707129505713228}
   coll: {fileID: 4346643400649016944}
-  windProjectile: {fileID: 0}
-  moveAcceleration: 300
+  moveAcceleration: 5
   jumpForce: 15
   blowForce: 20
   movementSpeedCap: 20
@@ -317,31 +314,6 @@ MonoBehaviour:
   velocityCap: 0
   coyoteTime: 0.2
   jumpBuffer: 0.5
---- !u!114 &8001114762004855144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 690592198474284785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 562994fd7efa54cf1bf50b87a7753039, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8018877829424905006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 690592198474284785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c7f6ff51c2af324c8bac195c01a581a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 0}
 --- !u!1 &1798650618754738447
 GameObject:
   m_ObjectHideFlags: 0
