@@ -80,7 +80,9 @@ public class PlayerController : MonoBehaviour
 
     public void Blow(InputAction.CallbackContext context) {
         if (!ManageAction(ActionType.Blow, context)) return;
-        //rb.velocity = Vector2.zero;
+        if (Global.GetRelativeMousePosition(transform.position).y > 0f) {
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, 0f));
+        }
         rb.AddForce(Global.GetRelativeMousePosition(transform.position)*blowForce, ForceMode2D.Impulse);
     }
     #endregion
