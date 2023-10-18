@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Fan",
+                    "name": "FireDir",
                     "type": "Value",
                     "id": "fd14ec37-aece-4187-be55-9ba619d5f898",
                     "expectedControlType": "Vector2",
@@ -160,7 +160,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Fan",
+                    "action": "FireDir",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

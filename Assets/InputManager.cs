@@ -27,7 +27,7 @@ public class InputManager : MonoBehaviour
             Debug.Log(item.enabled);
         }
 
-        text.text = "Controllers: " + InputSystem.devices.Count.ToString();
+        //text.text = "Controllers: " + InputSystem.devices.Count.ToString();
     }
     // Update is called once per frame
     void Update()
