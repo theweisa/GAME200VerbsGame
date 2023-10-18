@@ -1,10 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using NaughtyAttributes;
-using UnityEditor.EditorTools;
-using Unity.VisualScripting;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -50,6 +47,7 @@ public class PlayerController : MonoBehaviour
     {
         baseLinearDrag = rb.drag;
         baseGravityScale = rb.gravityScale;
+        
         //  Time.timeScale = 0.3f;
     }
     // Update is called once per frame
