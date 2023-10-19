@@ -10,7 +10,7 @@ public class BaseDamageSource : MonoBehaviour
     public float knockbackForce;
     public float projectileSpeed;
     public float lifetime;
-    private float lifetimeTimer;
+    protected float lifetimeTimer;
     public float velocityCap = 100f;
     public bool destroyOnContact = false;
     public Vector2 direction;
@@ -35,6 +35,7 @@ public class BaseDamageSource : MonoBehaviour
     public virtual void InitDamageSource(BaseDamageable damageable, Vector2 dir) {
         hostDamageable = damageable;
         direction = dir;
+        rb.AddForce(projectileSpeed*direction, ForceMode2D.Impulse);
     }
 
     public virtual void ApplyDamage(BaseDamageable damageable) {
@@ -56,7 +57,7 @@ public class BaseDamageSource : MonoBehaviour
         StartCoroutine(OnDeath());
     }
 
-    public void UpdateVelocity() {
+    public virtual void UpdateVelocity() {
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, velocityCap);
     }
 
