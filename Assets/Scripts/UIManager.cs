@@ -6,11 +6,13 @@ public class UIManager : UnitySingleton<UIManager>
 {
     public SelectPlayerPanelController selectPlayerUIPanel;
     public GameUIPanelController gameUIPanel;
+    public bool CheckPlayerNumbers = true;
     // Start is called before the first frame update
 
 
     public void StartLevel()
     {
+        if (!CheckPlayerNumbers) return;
         if (!MultiplayerManager.Instance.HasEnoughPlayer())
         {
             Debug.Log("Need at least two players");
