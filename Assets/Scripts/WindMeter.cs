@@ -21,7 +21,7 @@ public class WindMeter : MonoBehaviour
     void Update()
     {
         if (meterRegenTimer > 0) {
-            meterRegenTimer -= Time.deltaTime;
+            meterRegenTimer = Mathf.Max(meterRegenTimer-Time.deltaTime, 0);
         }
         else if (currentMeter < totalMeter) {
             currentMeter = Mathf.Min(currentMeter + Time.deltaTime * meterRegenPerSecond, totalMeter);
@@ -53,5 +53,10 @@ public class WindMeter : MonoBehaviour
             windBar.localScale = new Vector2(val, windBar.localScale.y);
         }, windBar.localScale.x, 1, 0.3f).setEaseOutExpo();
         backBar.localScale = new Vector2(1, backBar.localScale.y);
+        currentMeter = totalMeter;
+        ResetRegenTimer();
+    }
+    public void ResetRegenTimer() {
+        meterRegenTimer = 0;
     }
 }

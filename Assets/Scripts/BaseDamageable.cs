@@ -6,7 +6,7 @@ public class BaseDamageable : MonoBehaviour
 {
     public Rigidbody2D rb;
     float hp = 1;
-    void Awake() {
+    protected virtual void Awake() {
         rb = rb ? rb : Global.FindComponent<Rigidbody2D>(gameObject);
     }
     // Start is called before the first frame update

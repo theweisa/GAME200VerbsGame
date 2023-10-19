@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class WindProjectile : BaseDamageSource
 {
+    [Header("Wind Projectile Variables")] [Space(4)]
     public float minScale = 1f;
     public float maxScale = 2f;
     public float minBlowForce = 15f;
     public float maxBlowForce = 30f;
+    public float minMeterCost = 10f;
+    public float maxMeterCost = 20f;
+    [HideInInspector] public float meterCost;
     protected override void Start() {
         base.Start();
         destroyOnContact = false;
@@ -27,6 +31,7 @@ public class WindProjectile : BaseDamageSource
         LeanTween.value(gameObject, (float val) => {
             transform.localScale = new Vector2(val, val);
         }, minScale, maxScale, lifetime).setEaseOutQuart();
+        meterCost = minMeterCost + chargeRatio * (maxMeterCost-minMeterCost);
     }
 
     public override void ApplyDamage(BaseDamageable damageable)
@@ -43,5 +48,18 @@ public class WindProjectile : BaseDamageSource
         BaseDamageable dmgObj = Global.FindComponent<BaseDamageable>(coll.gameObject);
         if (dmgObj && (dmgObj == hostDamageable || contactedDamageables.Contains(dmgObj))) return;
         objRb.AddForce(knockbackForce*direction, ForceMode2D.Impulse);
+
+        if (!coll.gameObject.CompareTag("Player")) return;
+
+        PlayerCombatant hitPlayer = dmgObj.gameObject.GetComponent<PlayerCombatant>();
+        PlayerCombatant hostPlayer = hostDamageable.gameObject.GetComponent<PlayerCombatant>();
+        if (hitPlayer) {
+            StartCoroutine(hitPlayer.controller.windMeter.DepleteMeter(meterCost*1.5f));
+            hitPlayer.lastPlayerHitBy = hostPlayer;
+            hitPlayer.controller.BlowStun();
+        }
+        if (hostPlayer) {
+            hostPlayer.controller.windMeter.ResetRegenTimer();
+        }
     }
 }

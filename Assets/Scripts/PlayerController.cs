@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using NaughtyAttributes;
-using UnityEditor.EditorTools;
-using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,11 +11,12 @@ public class PlayerController : MonoBehaviour
 
     [Header("References")] [Space(4)]
     public Rigidbody2D rb;
+    public SpriteRenderer sprite;
     public Collider2D coll;
     public GameObject windProjectile;
-    public WindMeter windMeter; 
+    public WindMeter windMeter;
     
-    [Header("Attack Variables")] [Space(4)]
+    [Header("Combat Variables")] [Space(4)]
     [Tooltip("distance from the player the attack is fired")]
     public float fireDist = 1.5f;
     [Tooltip("Time it takes to reach max charge")]
@@ -25,6 +24,9 @@ public class PlayerController : MonoBehaviour
     protected float chargeTimeTimer;
     [Tooltip("Self knockback multiplier the user receives from blow attacks")]
     public float selfKnockbackMultiplier = 0.7f;
+    [Tooltip("How long the player gets stunned out of being able to change momentum with wind after being hit")]
+    public float blowStunDuration = 3f;
+    private float blowStunTimer;
 
     [Header("Platformer Feel Variables")] [Space(4)]
     [Tooltip("How fast the player accelerates")]
@@ -42,6 +44,8 @@ public class PlayerController : MonoBehaviour
     protected float coyoteTimeTimer = 0f;
     [Tooltip("Time before you can jump after jumping")]
     public float jumpBuffer = 0.1f;
+    [Tooltip("Minimym Y velocity before your fall accelerates")]
+    public float fallYThreshold = 2f;
     protected float jumpBufferTimer = 0f;
     protected float minJumpDist = 0.7f;
 
@@ -51,6 +55,8 @@ public class PlayerController : MonoBehaviour
     private float baseLinearDrag;
     private bool jumped=false;
     private bool charging=false;
+    public bool blowStunned=false;
+
     void Awake() {
         rb = rb ? rb : Global.FindComponent<Rigidbody2D>(gameObject);
         coll = coll ? coll : Global.FindComponent<Collider2D>(gameObject);
@@ -99,16 +105,26 @@ public class PlayerController : MonoBehaviour
         else if (context.canceled && charging) {
             charging = false;
             Vector2 fireDir = Global.GetRelativeMousePosition(transform.position);
-            if (fireDir.y < 0f) {
-                rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, 0f));
+            // can cancel all momentum from other direction if not blow stunned
+            if (blowStunTimer <= 0) {
+                rb.velocity = new Vector2(
+                    rb.velocity.x * -fireDir.x < 0 ? 0 : rb.velocity.x,
+                    rb.velocity.y * -fireDir.y < 0 ? 0 : rb.velocity.y
+                );
+            }
+            if (fireDir.y < 0) {
+                jumped=false;
             }
             Quaternion rotation = Quaternion.AngleAxis(Mathf.Atan2(fireDir.y, fireDir.x) * Mathf.Rad2Deg, Vector3.forward);
             WindProjectile proj = Instantiate(windProjectile, (Vector2)transform.position+fireDir*fireDist, rotation, GameManager.Instance.instanceManager).GetComponent<WindProjectile>();
             proj.InitDamageSource(Global.FindComponent<PlayerCombatant>(gameObject), fireDir);
             proj.InitBlowProjectile(GetChargeRatio());
             rb.AddForce(-fireDir*proj.knockbackForce*selfKnockbackMultiplier, ForceMode2D.Impulse);
-            StartCoroutine(windMeter.DepleteMeter(20f));
+            StartCoroutine(windMeter.DepleteMeter(proj.meterCost));
         }
+    }
+    public void BlowStun() {
+        blowStunTimer = blowStunDuration;
     }
     #endregion
 
@@ -117,6 +133,7 @@ public class PlayerController : MonoBehaviour
         jumpBufferTimer = Mathf.Max(jumpBufferTimer-Time.deltaTime, 0f);
         coyoteTimeTimer = Mathf.Max(coyoteTimeTimer-Time.deltaTime, 0f);
         chargeTimeTimer = Mathf.Max(chargeTimeTimer-Time.deltaTime, 0f);
+        blowStunTimer = Mathf.Max(blowStunTimer-Time.deltaTime, 0f);
     }
     void UpdatePhysics() {
         rb.velocity = velocityCap > 0 ? Vector2.ClampMagnitude(rb.velocity, velocityCap) : rb.velocity;
@@ -141,7 +158,7 @@ public class PlayerController : MonoBehaviour
         rb.drag = baseLinearDrag * 2f;
         rb.gravityScale = baseGravityScale;
         //rb.drag = baseLinearDrag * 0.15f;
-        if (rb.velocity.y < 1) {
+        if (rb.velocity.y < fallYThreshold) {
             rb.gravityScale = baseGravityScale*fallMultiplier;
         }
         else if (rb.velocity.y > 0f && jumped && !inputDict.ContainsKey(ActionType.Jump)) {
