@@ -105,6 +105,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5ed8c63a-6c2f-44b2-846b-ffe8dc3da832
     m_ActionName: Player/Fire[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fd14ec37-aece-4187-be55-9ba619d5f898
+    m_ActionName: Player/FireDir
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 87078023-7821-4420-b125-a4dab912f0cd
+    m_ActionName: UI/Join[/Keyboard/anyKey]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -312,7 +320,7 @@ GameObject:
   - component: {fileID: 8095707129505713228}
   - component: {fileID: 1712433157382054058}
   - component: {fileID: 8001114762004855144}
-  - component: {fileID: 8018877829424905006}
+  - component: {fileID: 427439996945580758}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -413,12 +421,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 8095707129505713228}
+  sprite: {fileID: 0}
   coll: {fileID: 4346643400649016944}
   windProjectile: {fileID: 310256337826347110, guid: 48a596f6bca515e46a9319afa111bf3b, type: 3}
   windMeter: {fileID: 6941635912180526477}
   fireDist: 1.5
   maxChargeTime: 1
   selfKnockbackMultiplier: 0.7
+  blowStunDuration: 3
   moveAcceleration: 2000
   jumpForce: 15
   movementSpeedCap: 20
@@ -426,6 +436,9 @@ MonoBehaviour:
   velocityCap: 0
   coyoteTime: 0.2
   jumpBuffer: 0.5
+  fallYThreshold: 2
+  minJumpDist: 0.7
+  blowStunned: 0
 --- !u!114 &8001114762004855144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,7 +451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 562994fd7efa54cf1bf50b87a7753039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8018877829424905006
+--- !u!114 &427439996945580758
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -447,11 +460,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 690592198474284785}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c7f6ff51c2af324c8bac195c01a581a, type: 3}
+  m_Script: {fileID: 11500000, guid: edc7fe9b7ef66e94a81759dc8c1843f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 8095707129505713228}
-  controller: {fileID: 1712433157382054058}
+  rb: {fileID: 0}
+  playerNumber: 0
+  lastPlayerHitBy: {fileID: 0}
+  points: 0
+  controller: {fileID: 0}
 --- !u!1 &1798650618754738447
 GameObject:
   m_ObjectHideFlags: 0

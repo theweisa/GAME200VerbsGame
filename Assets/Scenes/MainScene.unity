@@ -1498,6 +1498,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectPlayerUIPanel: {fileID: 898494511}
   gameUIPanel: {fileID: 1950171554}
+  ShouldCheckPlayerNumbers: 0
 --- !u!4 &1840525637
 Transform:
   m_ObjectHideFlags: 0

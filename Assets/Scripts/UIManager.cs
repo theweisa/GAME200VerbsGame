@@ -6,20 +6,21 @@ public class UIManager : UnitySingleton<UIManager>
 {
     public SelectPlayerPanelController selectPlayerUIPanel;
     public GameUIPanelController gameUIPanel;
-    public bool CheckPlayerNumbers = true;
+    public bool ShouldCheckPlayerNumbers = true;
     // Start is called before the first frame update
 
 
     public void StartLevel()
     {
-        if (!CheckPlayerNumbers) return;
-        if (!MultiplayerManager.Instance.HasEnoughPlayer())
-        {
+        if (ShouldCheckPlayerNumbers){
+            if (!MultiplayerManager.Instance.HasEnoughPlayer()){
             Debug.Log("Need at least two players");
             return;
+            }
         }
-            TogglePanel(selectPlayerUIPanel.gameObject, false);
-            TogglePanel(gameUIPanel.gameObject, true);
+
+        TogglePanel(selectPlayerUIPanel.gameObject, false);
+        TogglePanel(gameUIPanel.gameObject, true);
         
     }
     public void TogglePanel(GameObject panel, bool state)
