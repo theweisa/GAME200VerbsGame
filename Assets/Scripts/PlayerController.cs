@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(moveAcceleration*moveDirection);
     }
 
+
     #region Input Callbacks
     public void Move(InputAction.CallbackContext context) {
         moveDirection = context.ReadValue<Vector2>();

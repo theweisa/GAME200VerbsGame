@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
 using UnityEngine;
-
-public class GameManager : UnitySingleton<GameManager>
+using UnityEngine.SceneManagement;
+public class MainMenuManager : UnitySingleton<MainMenuManager>
 {
     // Start is called before the first frame update
     void Start()
@@ -17,8 +16,9 @@ public class GameManager : UnitySingleton<GameManager>
         
     }
 
-    public void TogglePause(bool shouldPause)
+    public void StartGame()
     {
-        Time.timeScale = shouldPause ? 1.0f : 0.0f;
+        //GameManager.Instance.TogglePause(true);
+        SceneManager.LoadScene(1);
     }
 }
