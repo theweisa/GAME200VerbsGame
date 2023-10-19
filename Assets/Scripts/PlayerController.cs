@@ -65,7 +65,6 @@ public class PlayerController : MonoBehaviour
     {
         baseLinearDrag = rb.drag;
         baseGravityScale = rb.gravityScale;
-        //  Time.timeScale = 0.3f;
     }
     // Update is called once per frame
     void Update()
@@ -81,7 +80,7 @@ public class PlayerController : MonoBehaviour
 
     #region Input Callbacks
     public void Move(InputAction.CallbackContext context) {
-        moveDirection = context.ReadValue<Vector2>();
+        moveDirection = new Vector2(context.ReadValue<Vector2>().x, 0);
     }
     public void Jump(InputAction.CallbackContext context) {
         if (!ManageAction(ActionType.Jump, context)) return;
@@ -95,6 +94,7 @@ public class PlayerController : MonoBehaviour
 
     public void Blow(InputAction.CallbackContext context) {
         ManageAction(ActionType.Blow, context);
+        Debug.Log("click");
         if (windMeter.GetCurrentMeter() <= 0) {
             return;
         }
