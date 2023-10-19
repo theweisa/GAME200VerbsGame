@@ -44,11 +44,12 @@ public class PlayerController : MonoBehaviour
     protected float coyoteTimeTimer = 0f;
     [Tooltip("Time before you can jump after jumping")]
     public float jumpBuffer = 0.1f;
+    protected float jumpBufferTimer = 0f;
     [Tooltip("Minimym Y velocity before your fall accelerates")]
     public float fallYThreshold = 2f;
-    protected float jumpBufferTimer = 0f;
-    protected float minJumpDist = 0.7f;
-
+    [Tooltip("Distance from the ground that the player is considered grounded")]
+    public float minJumpDist = 0.7f;
+    
     // private variables
     private Vector2 moveDirection;
     private float baseGravityScale;
