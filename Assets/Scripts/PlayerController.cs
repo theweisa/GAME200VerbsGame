@@ -1,10 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using NaughtyAttributes;
-using UnityEditor.EditorTools;
-using Unity.VisualScripting;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [Space(4)]
     public Rigidbody2D rb;
     public Collider2D coll;
+    public GameObject windProjectile;
     
     [Header("Inspector Values")]
     [Space(4)]
@@ -50,6 +48,7 @@ public class PlayerController : MonoBehaviour
     {
         baseLinearDrag = rb.drag;
         baseGravityScale = rb.gravityScale;
+        
         //  Time.timeScale = 0.3f;
     }
     // Update is called once per frame
@@ -61,7 +60,7 @@ public class PlayerController : MonoBehaviour
     }
     void ApplyMovement() {
         if (Mathf.Abs(rb.velocity.x) > movementSpeedCap) return;
-        rb.AddForce(moveAcceleration*moveDirection);
+        rb.AddForce(Time.deltaTime*moveAcceleration*moveDirection);
     }
 
     #region Input Callbacks
@@ -80,8 +79,13 @@ public class PlayerController : MonoBehaviour
 
     public void Blow(InputAction.CallbackContext context) {
         if (!ManageAction(ActionType.Blow, context)) return;
-        //rb.velocity = Vector2.zero;
-        rb.AddForce(Global.GetRelativeMousePosition(transform.position)*blowForce, ForceMode2D.Impulse);
+        Vector2 fireDir = Global.GetRelativeMousePosition(transform.position);
+        if (fireDir.y < 0f) {
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, 0f));
+        }
+        BaseDamageSource proj = Global.FindComponent<BaseDamageSource>(Instantiate(windProjectile, transform.position, Quaternion.identity, GameManager.Instance.instanceManager));
+        proj.InitDamageSource(Global.FindComponent<PlayerCombatant>(gameObject), fireDir);
+        rb.AddForce(-fireDir*blowForce, ForceMode2D.Impulse);
     }
     #endregion
 
@@ -110,7 +114,7 @@ public class PlayerController : MonoBehaviour
         rb.drag = baseLinearDrag * 2f;
         rb.gravityScale = baseGravityScale;
         //rb.drag = baseLinearDrag * 0.15f;
-        if (rb.velocity.y < 0) {
+        if (rb.velocity.y < 1) {
             rb.gravityScale = baseGravityScale*fallMultiplier;
         }
         else if (rb.velocity.y > 0f && jumped && !inputDict.ContainsKey(ActionType.Jump)) {
