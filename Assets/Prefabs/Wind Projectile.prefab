@@ -204,6 +204,10 @@ MonoBehaviour:
   destroyOnContact: 0
   direction: {x: 0, y: 0}
   hostDamageable: {fileID: 0}
+  minScale: 1
+  maxScale: 2
+  minBlowForce: 15
+  maxBlowForce: 30
 --- !u!70 &8676994759155154605
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

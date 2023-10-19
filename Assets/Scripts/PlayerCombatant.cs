@@ -16,4 +16,10 @@ public class PlayerCombatant : BaseDamageable
     {
         
     }
+
+    public override IEnumerator OnDeath()
+    {
+        Debug.Log("player die");
+        yield return base.OnDeath();
+    }
 }

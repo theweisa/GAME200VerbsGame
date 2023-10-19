@@ -15,17 +15,16 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     public Collider2D coll;
     public GameObject windProjectile;
+    public WindMeter windMeter; 
     
-    [Header("Inspector Values")] [Space(4)]
     [Header("Attack Variables")] [Space(4)]
+    [Tooltip("distance from the player the attack is fired")]
     public float fireDist = 1.5f;
-    [Tooltip("Force Applied from Blowing")]
-    public float blowForce;
     [Tooltip("Time it takes to reach max charge")]
     public float maxChargeTime = 1f;
     protected float chargeTimeTimer;
-    public float minBlowForce = 15;
-    public float maxBlowForce = 30;
+    [Tooltip("Self knockback multiplier the user receives from blow attacks")]
+    public float selfKnockbackMultiplier = 0.7f;
 
     [Header("Platformer Feel Variables")] [Space(4)]
     [Tooltip("How fast the player accelerates")]
@@ -51,6 +50,7 @@ public class PlayerController : MonoBehaviour
     private float baseGravityScale;
     private float baseLinearDrag;
     private bool jumped=false;
+    private bool charging=false;
     void Awake() {
         rb = rb ? rb : Global.FindComponent<Rigidbody2D>(gameObject);
         coll = coll ? coll : Global.FindComponent<Collider2D>(gameObject);
@@ -89,21 +89,25 @@ public class PlayerController : MonoBehaviour
 
     public void Blow(InputAction.CallbackContext context) {
         ManageAction(ActionType.Blow, context);
+        if (windMeter.GetCurrentMeter() <= 0) {
+            return;
+        }
         if (context.started) {
             chargeTimeTimer = maxChargeTime;
+            charging = true;
         }
-        else if (context.canceled) {
+        else if (context.canceled && charging) {
+            charging = false;
             Vector2 fireDir = Global.GetRelativeMousePosition(transform.position);
             if (fireDir.y < 0f) {
                 rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, 0f));
             }
             Quaternion rotation = Quaternion.AngleAxis(Mathf.Atan2(fireDir.y, fireDir.x) * Mathf.Rad2Deg, Vector3.forward);
-            WindProjectile proj = Global.FindComponent<WindProjectile>(
-                Instantiate(windProjectile, (Vector2)transform.position+fireDir*fireDist, rotation, GameManager.Instance.instanceManager)
-            );
+            WindProjectile proj = Instantiate(windProjectile, (Vector2)transform.position+fireDir*fireDist, rotation, GameManager.Instance.instanceManager).GetComponent<WindProjectile>();
             proj.InitDamageSource(Global.FindComponent<PlayerCombatant>(gameObject), fireDir);
             proj.InitBlowProjectile(GetChargeRatio());
-            rb.AddForce(-fireDir*proj.knockbackForce, ForceMode2D.Impulse);
+            rb.AddForce(-fireDir*proj.knockbackForce*selfKnockbackMultiplier, ForceMode2D.Impulse);
+            StartCoroutine(windMeter.DepleteMeter(20f));
         }
     }
     #endregion
