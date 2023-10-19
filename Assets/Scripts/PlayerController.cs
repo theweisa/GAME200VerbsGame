@@ -56,7 +56,6 @@ public class PlayerController : MonoBehaviour
     private float baseLinearDrag;
     private bool jumped=false;
     private bool charging=false;
-    public bool blowStunned=false;
 
     void Awake() {
         rb = rb ? rb : Global.FindComponent<Rigidbody2D>(gameObject);
