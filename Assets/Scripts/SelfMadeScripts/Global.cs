@@ -54,7 +54,7 @@ public static class Global {
         return Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
     public static Vector2 GetRelativeMousePosition(Vector2 relPos) {
-        Vector2 pos = GetMouseWorldPosition() - relPos;
+        Vector2 pos = relPos - GetMouseWorldPosition();
         pos.Normalize();
         return pos;
     }
