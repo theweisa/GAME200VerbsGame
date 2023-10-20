@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class MainMenuManager : UnitySingleton<MainMenuManager>
 {
-    public SelectPlayerPanelController selectPanel;
-    public bool ShouldCheckPlayerNumbers = true;
+    
     // Start is called before the first frame update
 
 
@@ -17,10 +16,6 @@ public class MainMenuManager : UnitySingleton<MainMenuManager>
         
     }
 
-    public void StartGame()
-    {
-        //GameManager.Instance.TogglePause(true);
-        SceneManager.LoadScene(1);
-    }
+
 
 }

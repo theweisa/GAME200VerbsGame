@@ -64,8 +64,8 @@ public class PlayerCombatant : BaseDamageable
         if (lastPlayerHitBy)
         {
             lastPlayerHitBy.points++;
-            lastPlayerHitBy = null;
             Debug.Log($"Player {lastPlayerHitBy.id} points: {lastPlayerHitBy.points}");
+            lastPlayerHitBy = null;
         }
         SpawnPlayer();
     }

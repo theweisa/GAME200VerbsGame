@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameManager : UnitySingleton<GameManager>
 {
+    //public bool ShouldCheckPlayerNumbers = true;
     public Transform instanceManager;
     public PlayerManager playerManager;
     // Start is called before the first frame update
@@ -23,4 +24,11 @@ public class GameManager : UnitySingleton<GameManager>
     {
         Time.timeScale = shouldPause ? 1.0f : 0.0f;
     }
+
+    public void StartGame()
+    {
+        //GameManager.Instance.TogglePause(true);
+        SceneManager.LoadScene(1);
+    }
+
 }
