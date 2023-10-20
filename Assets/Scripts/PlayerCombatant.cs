@@ -27,6 +27,7 @@ public class PlayerCombatant : BaseDamageable
         id = newId;
         MultiplayerManager.Instance.AddPlayerPrefab(gameObject);
         UIManager.Instance.selectPlayerUIPanel.ActivateSlot(id);
+        controller.ToggleMovement(false);
         controller.input = input;
         Debug.Log($"Player {id} Joined: {input.currentControlScheme}");
     }

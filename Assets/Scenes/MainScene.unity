@@ -885,6 +885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c6c5e6472912b64d99136a7728f0716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dangerType: 0
 --- !u!50 &985540599
 Rigidbody2D:
   serializedVersion: 4
@@ -1140,6 +1141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c6c5e6472912b64d99136a7728f0716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dangerType: 0
 --- !u!50 &1447479693
 Rigidbody2D:
   serializedVersion: 4
@@ -1399,6 +1401,10 @@ PrefabInstance:
     - target: {fileID: 1119932241745251400, guid: c2a7c3eaf453146dbba7dc39b15c1b3d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1510584023391637324, guid: c2a7c3eaf453146dbba7dc39b15c1b3d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2550412872320014190, guid: c2a7c3eaf453146dbba7dc39b15c1b3d, type: 3}
       propertyPath: m_Name
@@ -1887,6 +1893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c6c5e6472912b64d99136a7728f0716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dangerType: 0
 --- !u!50 &1983240908
 Rigidbody2D:
   serializedVersion: 4
@@ -2058,6 +2065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c6c5e6472912b64d99136a7728f0716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dangerType: 0
 --- !u!50 &1995043447
 Rigidbody2D:
   serializedVersion: 4

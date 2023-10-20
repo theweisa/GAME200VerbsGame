@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class MainMenuManager : UnitySingleton<MainMenuManager>
 {
+    public SelectPlayerPanelController selectPanel;
+    public bool ShouldCheckPlayerNumbers = true;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
+
+
 
     // Update is called once per frame
     void Update()
@@ -21,4 +22,5 @@ public class MainMenuManager : UnitySingleton<MainMenuManager>
         //GameManager.Instance.TogglePause(true);
         SceneManager.LoadScene(1);
     }
+
 }

@@ -18,7 +18,7 @@ public class UIManager : UnitySingleton<UIManager>
             return;
             }
         }
-
+        MultiplayerManager.Instance.EnableAllPlayerMovement();
         TogglePanel(selectPlayerUIPanel.gameObject, false);
         TogglePanel(gameUIPanel.gameObject, true);
         

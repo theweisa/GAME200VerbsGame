@@ -57,7 +57,9 @@ public class PlayerController : MonoBehaviour
     private bool jumped=false;
     private bool charging=false;
     private Vector2 fireDirection;
+    [SerializeField]private bool canMove;
     [HideInInspector] public PlayerInput input;
+
 
     void Awake() {
         rb = rb ? rb : Global.FindComponent<Rigidbody2D>(gameObject);
@@ -72,6 +74,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         UpdateTimers();
+        if (!canMove) return;
         UpdatePhysics();
         ApplyMovement();
     }
@@ -80,6 +83,10 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Time.deltaTime*moveAcceleration*moveDirection);
     }
 
+    public void ToggleMovement(bool state)
+    {
+        canMove = state;
+    }
     #region Input Callbacks
     public void Move(InputAction.CallbackContext context) {
         moveDirection = new Vector2(context.ReadValue<Vector2>().x, 0);
@@ -107,6 +114,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Blow(InputAction.CallbackContext context) {
+        if (!canMove) return;
         ManageAction(ActionType.Blow, context);
         Debug.Log("click");
         if (windMeter.GetCurrentMeter() <= 0) {
@@ -192,6 +200,7 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(GetBottomPoint(), minJumpDist);
     }
     bool ManageAction(ActionType action, InputAction.CallbackContext context) {
+
         if (context.canceled) {
             inputDict.Remove(action);
             return false;

@@ -18,7 +18,14 @@ public class MultiplayerManager : UnitySingleton<MultiplayerManager>
         
     }
 
-
+    public void EnableAllPlayerMovement()
+    {
+        foreach (var player in players)
+        {
+            PlayerController controller = player.GetComponent<PlayerController>();
+            controller.ToggleMovement(true);
+        }
+    }
     public void AddPlayerPrefab(GameObject playerPrefab)
     {
         players.Add(playerPrefab);

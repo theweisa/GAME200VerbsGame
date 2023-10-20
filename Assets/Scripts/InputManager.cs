@@ -44,6 +44,7 @@ public class InputManager : MonoBehaviour
     {
         print(player.currentControlScheme);
         PlayerCombatant playerCombatant = Global.FindComponent<PlayerCombatant>(player.gameObject);
+
         if (!playerCombatant) return;
         playerCombatant.InitPlayer(id, player);
         id++;
