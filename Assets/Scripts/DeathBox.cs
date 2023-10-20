@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlastZone : MonoBehaviour
+public class DeathBox : MonoBehaviour
 {
+
+    public enum DangerType { BlastZone, Spike };
+    public DangerType dangerType = DangerType.BlastZone;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +21,6 @@ public class BlastZone : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D coll) {
-        Debug.Log("lmao");
         PlayerCombatant player = Global.FindComponent<PlayerCombatant>(coll.gameObject);
         if (coll.gameObject.tag != "Player" || !player) return;
         StartCoroutine(player.OnDeath());
