@@ -431,7 +431,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -779,6 +779,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e5b025577b9cfc4c992d40b053c3282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectPanel: {fileID: 0}
+  ShouldCheckPlayerNumbers: 1
 --- !u!4 &915872329
 Transform:
   m_ObjectHideFlags: 0
