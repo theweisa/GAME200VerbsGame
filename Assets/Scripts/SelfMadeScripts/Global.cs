@@ -19,7 +19,6 @@ public static class Global {
         if (returnVal != null && !returnVal.Equals(null)) {
             return returnVal;
         }
-        Debug.Log("ERROR: Could not Find Component");
         return returnVal;
         
     }
