@@ -38,6 +38,9 @@ public class PlayerCombatant : BaseDamageable
     {
         Debug.Log("player die");
         yield return base.OnDeath();
+        transform.position = new Vector3(0,0,0);
+        rb.velocity = Vector3.zero;
+        controller.windMeter.ResetMeter();
         if (lastPlayerHitBy)
         {
             lastPlayerHitBy.points++;

@@ -447,7 +447,7 @@ MonoBehaviour:
   velocityCap: 0
   coyoteTime: 0.2
   jumpBuffer: 0.5
-  fallYThreshold: 2
+  fallYThreshold: 3
   minJumpDist: 0.7
   input: {fileID: 0}
 --- !u!114 &427439996945580758
