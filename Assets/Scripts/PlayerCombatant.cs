@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerCombatant : BaseDamageable
 {
-    public int playerNumber;
+    public int id;
     public PlayerCombatant lastPlayerHitBy;
     public int points;
     public PlayerController controller;
@@ -17,11 +18,22 @@ public class PlayerCombatant : BaseDamageable
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
 
     }
 
+    public void InitPlayer(int newId, PlayerInput input) {
+        id = newId;
+        MultiplayerManager.Instance.AddPlayerPrefab(gameObject);
+        UIManager.Instance.selectPlayerUIPanel.ActivateSlot(id);
+        controller.input = input;
+        Debug.Log($"Player {id} Joined: {input.currentControlScheme}");
+    }
+
+    public void SpawnPlayer() {
+        gameObject.SetActive(true);
+    }
     public override IEnumerator OnDeath()
     {
         Debug.Log("player die");
@@ -30,7 +42,7 @@ public class PlayerCombatant : BaseDamageable
         {
             lastPlayerHitBy.points++;
             lastPlayerHitBy = null;
-            Debug.Log($"Player {lastPlayerHitBy.playerNumber} points: {lastPlayerHitBy.points}");
+            Debug.Log($"Player {lastPlayerHitBy.id} points: {lastPlayerHitBy.points}");
         }
     }
 }

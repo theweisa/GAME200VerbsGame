@@ -1447,6 +1447,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4252926898480704494, guid: 3d5617fb112e4ab42bc837cfc3a13363, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4252926898480704494, guid: 3d5617fb112e4ab42bc837cfc3a13363, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4252926898480704494, guid: 3d5617fb112e4ab42bc837cfc3a13363, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4565366014265838585, guid: 3d5617fb112e4ab42bc837cfc3a13363, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.09

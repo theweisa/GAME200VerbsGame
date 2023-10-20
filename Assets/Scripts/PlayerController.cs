@@ -56,6 +56,8 @@ public class PlayerController : MonoBehaviour
     private float baseLinearDrag;
     private bool jumped=false;
     private bool charging=false;
+    private Vector2 fireDirection;
+    [HideInInspector] public PlayerInput input;
 
     void Awake() {
         rb = rb ? rb : Global.FindComponent<Rigidbody2D>(gameObject);
@@ -92,6 +94,18 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Vector2.up*jumpForce, ForceMode2D.Impulse);
     }
 
+    public void FireDirection(InputAction.CallbackContext context) {
+        //if ()
+        if (input.currentControlScheme == "Mouse&Keyboard") {
+            //fireDirection = (Vector2)transform.position-context.ReadValue<Vector2>();
+            fireDirection = -Global.GetRelativeMousePosition(transform.position);
+        }
+        else {
+            fireDirection = context.ReadValue<Vector2>();
+        }
+        fireDirection.Normalize();
+    }
+
     public void Blow(InputAction.CallbackContext context) {
         ManageAction(ActionType.Blow, context);
         Debug.Log("click");
@@ -104,22 +118,22 @@ public class PlayerController : MonoBehaviour
         }
         else if (context.canceled && charging) {
             charging = false;
-            Vector2 fireDir = Global.GetRelativeMousePosition(transform.position);
+            //Vector2 fireDirection = Global.GetRelativeMousePosition(transform.position);
             // can cancel all momentum from other direction if not blow stunned
             if (blowStunTimer <= 0) {
                 rb.velocity = new Vector2(
-                    rb.velocity.x * -fireDir.x < 0 ? 0 : rb.velocity.x,
-                    rb.velocity.y * -fireDir.y < 0 ? 0 : rb.velocity.y
+                    rb.velocity.x * -fireDirection.x < 0 ? 0 : rb.velocity.x,
+                    rb.velocity.y * -fireDirection.y < 0 ? 0 : rb.velocity.y
                 );
             }
-            if (fireDir.y < 0) {
+            if (fireDirection.y < 0) {
                 jumped=false;
             }
-            Quaternion rotation = Quaternion.AngleAxis(Mathf.Atan2(fireDir.y, fireDir.x) * Mathf.Rad2Deg, Vector3.forward);
-            WindProjectile proj = Instantiate(windProjectile, (Vector2)transform.position+fireDir*fireDist, rotation, GameManager.Instance.instanceManager).GetComponent<WindProjectile>();
-            proj.InitDamageSource(Global.FindComponent<PlayerCombatant>(gameObject), fireDir);
+            Quaternion rotation = Quaternion.AngleAxis(Mathf.Atan2(fireDirection.y, fireDirection.x) * Mathf.Rad2Deg, Vector3.forward);
+            WindProjectile proj = Instantiate(windProjectile, (Vector2)transform.position+fireDirection*fireDist, rotation, GameManager.Instance.instanceManager).GetComponent<WindProjectile>();
+            proj.InitDamageSource(Global.FindComponent<PlayerCombatant>(gameObject), fireDirection);
             proj.InitBlowProjectile(GetChargeRatio());
-            rb.AddForce(-fireDir*proj.knockbackForce*selfKnockbackMultiplier, ForceMode2D.Impulse);
+            rb.AddForce(-fireDirection*proj.knockbackForce*selfKnockbackMultiplier, ForceMode2D.Impulse);
             StartCoroutine(windMeter.DepleteMeter(proj.meterCost));
         }
     }

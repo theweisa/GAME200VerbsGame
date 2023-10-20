@@ -141,6 +141,17 @@
                     "action": "FireDir",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ad6569ea-6ebb-4663-a476-36c178df00ef",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse&Keyboard",
+                    "action": "FireDir",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

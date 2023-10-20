@@ -106,7 +106,19 @@ MonoBehaviour:
     m_ActionId: 5ed8c63a-6c2f-44b2-846b-ffe8dc3da832
     m_ActionName: Player/Fire[/Keyboard/space]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1712433157382054058}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: FireDirection
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: fd14ec37-aece-4187-be55-9ba619d5f898
     m_ActionName: Player/FireDir
   - m_PersistentCalls:
@@ -319,7 +331,6 @@ GameObject:
   - component: {fileID: 4543124169489357562}
   - component: {fileID: 8095707129505713228}
   - component: {fileID: 1712433157382054058}
-  - component: {fileID: 8001114762004855144}
   - component: {fileID: 427439996945580758}
   m_Layer: 0
   m_Name: Player
@@ -438,19 +449,7 @@ MonoBehaviour:
   jumpBuffer: 0.5
   fallYThreshold: 2
   minJumpDist: 0.7
-  blowStunned: 0
---- !u!114 &8001114762004855144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 690592198474284785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 562994fd7efa54cf1bf50b87a7753039, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  input: {fileID: 0}
 --- !u!114 &427439996945580758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,7 +463,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 8095707129505713228}
-  playerNumber: 0
+  id: 0
   lastPlayerHitBy: {fileID: 0}
   points: 0
   controller: {fileID: 1712433157382054058}

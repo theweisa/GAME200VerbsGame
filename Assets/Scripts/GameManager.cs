@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameManager : UnitySingleton<GameManager>
 {
     public Transform instanceManager;
+    public PlayerManager playerManager;
     // Start is called before the first frame update
     void Start()
     {

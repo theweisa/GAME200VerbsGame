@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MultiplayerManager : UnitySingleton<MultiplayerManager>
 {
-    public List<GameObject> playerPrefabs = new List<GameObject>();
+    public List<GameObject> players = new List<GameObject>();
+    public Transform playersParent;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,13 +19,14 @@ public class MultiplayerManager : UnitySingleton<MultiplayerManager>
     }
 
 
-    public void  AddPlayerPrefab(GameObject playerPrefab)
+    public void AddPlayerPrefab(GameObject playerPrefab)
     {
-        playerPrefabs.Add(playerPrefab);
+        players.Add(playerPrefab);
+        playerPrefab.transform.parent = playersParent;
     }
 
     public bool HasEnoughPlayer()
     {
-        if (playerPrefabs.Count>=2 ) return true; return false;
+        if (players.Count>=2 ) return true; return false;
     }
 }

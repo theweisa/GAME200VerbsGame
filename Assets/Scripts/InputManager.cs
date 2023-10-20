@@ -11,7 +11,7 @@ public class InputManager : MonoBehaviour
 {
     public PlayerInputManager playerInputManager;
     public TextMeshProUGUI text;
-    int id = 0;
+    int id = 1;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,10 +42,10 @@ public class InputManager : MonoBehaviour
 
     public void AfterPlayerJoined(PlayerInput player)
     {
-        GameObject playerPrefab = player.gameObject.transform.parent.gameObject;
-        MultiplayerManager.Instance.AddPlayerPrefab(playerPrefab);
-        SelectPlayerPanelController selectPlayerPanelController = UIManager.Instance.selectPlayerUIPanel;
-        selectPlayerPanelController.ActivateSlot(id);
+        print(player.currentControlScheme);
+        PlayerCombatant playerCombatant = Global.FindComponent<PlayerCombatant>(player.gameObject);
+        if (!playerCombatant) return;
+        playerCombatant.InitPlayer(id, player);
         id++;
     }
 }

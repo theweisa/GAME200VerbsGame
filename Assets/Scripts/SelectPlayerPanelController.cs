@@ -10,8 +10,8 @@ public class SelectPlayerPanelController : MonoBehaviour
 
     public void ActivateSlot(int index)
     {
-        PlayerSlotUI slotUI = playerSlots[index];
-        slotUI.SetPlayerSpriteColor(index);
-        slotUI.SetPlayerIDText(index + 1);
+        PlayerSlotUI slotUI = playerSlots[index-1];
+        slotUI.SetPlayerSpriteColor(index-1);
+        slotUI.SetPlayerIDText(index);
     }
 }
