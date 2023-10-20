@@ -28,6 +28,7 @@ public class PlayerCombatant : BaseDamageable
         MultiplayerManager.Instance.AddPlayerPrefab(gameObject);
         UIManager.Instance.selectPlayerUIPanel.ActivateSlot(id);
         controller.input = input;
+        CameraManager.Instance.AddGroupTarget(transform, 2, 13);
         Debug.Log($"Player {id} Joined: {input.currentControlScheme}");
     }
 
@@ -44,8 +45,9 @@ public class PlayerCombatant : BaseDamageable
         if (lastPlayerHitBy)
         {
             lastPlayerHitBy.points++;
-            lastPlayerHitBy = null;
             Debug.Log($"Player {lastPlayerHitBy.id} points: {lastPlayerHitBy.points}");
+            lastPlayerHitBy = null;
         }
+            
     }
 }

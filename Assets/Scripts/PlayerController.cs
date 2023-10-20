@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public Collider2D coll;
     public GameObject windProjectile;
     public WindMeter windMeter;
+    public Transform Fan;
     
     [Header("Combat Variables")] [Space(4)]
     [Tooltip("distance from the player the attack is fired")]
@@ -72,6 +73,9 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         UpdateTimers();
+        if (chargeTimeTimer > 0) {
+            Fan.localScale = new Vector2(3.5f+GetChargeRatio(), 3.5f+GetChargeRatio());
+        }
         UpdatePhysics();
         ApplyMovement();
     }
@@ -104,6 +108,8 @@ public class PlayerController : MonoBehaviour
             fireDirection = context.ReadValue<Vector2>();
         }
         fireDirection.Normalize();
+        Fan.position = (Vector2)transform.position + fireDirection*fireDist;
+        Fan.rotation = Quaternion.AngleAxis(Mathf.Atan2(fireDirection.y, fireDirection.x) * Mathf.Rad2Deg, Vector3.forward);
     }
 
     public void Blow(InputAction.CallbackContext context) {
@@ -118,6 +124,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (context.canceled && charging) {
             charging = false;
+            LeanTween.scale(Fan.gameObject, new Vector3(3.5f,3.5f,3.5f), 0.15f).setEaseOutExpo();
             //Vector2 fireDirection = Global.GetRelativeMousePosition(transform.position);
             // can cancel all momentum from other direction if not blow stunned
             if (blowStunTimer <= 0) {
@@ -160,11 +167,16 @@ public class PlayerController : MonoBehaviour
     void UpdateGrounded() {
         if (!IsGrounded()) return;
         // if still able to jump
-        if (jumpBufferTimer <= 0f) {
-            rb.gravityScale = baseGravityScale;
+        if (jumpBufferTimer > 0f) return;
+        rb.gravityScale = baseGravityScale;
+        rb.drag = baseLinearDrag;
+        coyoteTimeTimer = coyoteTime;
+        jumped = false;
+        if (moveDirection.x * rb.velocity.x < 0) {
+            rb.drag = 1;
+        }
+        else {
             rb.drag = baseLinearDrag;
-            coyoteTimeTimer = coyoteTime;
-            jumped = false;
         }
     }
     void UpdateAirTime() {
