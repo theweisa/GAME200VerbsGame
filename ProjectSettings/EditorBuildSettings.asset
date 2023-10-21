@@ -6,7 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: e93a073e40d8ea54896dbba4ca108d96
+  - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 0
+    path: Assets/Scenes/YiyangScene.unity
+    guid: 60cb4553b5699414282fb197d7b65992
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: f28d8cb4f386ac5479aec502410c5ced, type: 2}

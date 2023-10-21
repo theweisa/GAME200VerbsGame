@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-public class PlayerConfigs : MonoBehaviour
+
+public class GameUIPanelController : MonoBehaviour
 {
-    public int id;
-    public InputDevice controller;
     // Start is called before the first frame update
     void Start()
     {
