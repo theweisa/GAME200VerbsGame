@@ -10,7 +10,6 @@ using UnityEngine.InputSystem.Users;
 public class InputManager : MonoBehaviour
 {
     public PlayerInputManager playerInputManager;
-    public PlayerInput playerInput;
     public TextMeshProUGUI text;
     int id = 1;
     // Start is called before the first frame update
@@ -51,8 +50,9 @@ public class InputManager : MonoBehaviour
     }
     public void AfterPlayerJoined(PlayerInput player)
     {
-       // player.transform.parent.gameObject.transform.SetParent(MultiplayerManager.Instance.playersParent);
+        // player.transform.parent.gameObject.transform.SetParent(MultiplayerManager.Instance.playersParent);
         //print(player.currentControlScheme);
+        if (!player.gameObject.CompareTag("Player")) return;
         MultiplayerManager.Instance.AddPlayerPrefab(player.transform.parent.gameObject);
         SelectSceneManager.Instance.selectPlayerUIPanel.ActivateSlot(id);
         id++;

@@ -7,11 +7,13 @@ public class MultiplayerManager : UnitySingleton<MultiplayerManager>
     public List<GameObject> players = new List<GameObject>();
     public Transform playersParent;
     public LevelManager currentLevelManager;
+    [SerializeField] List<LevelManager> availableLevels = new List<LevelManager>();
     int id = 1;
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(gameObject);
+        currentLevelManager = null;
     }
 
     // Update is called once per frame
@@ -54,9 +56,18 @@ public class MultiplayerManager : UnitySingleton<MultiplayerManager>
         //playerCombatant.InitPlayer(id, player);
         //id++;
     }
+
+    public void InitStartLevelPrefab(Transform levelParent)
+    {
+        Instantiate(currentLevelManager.gameObject, levelParent);
+    }
     public bool HasEnoughPlayer()
     {
         if (players.Count>=2 ) return true; return false;
     }
 
+    public void SetStartLevel(int index)
+    {
+        currentLevelManager = availableLevels[index];
+    }
 }
