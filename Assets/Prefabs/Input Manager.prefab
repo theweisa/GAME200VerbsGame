@@ -51,7 +51,19 @@ MonoBehaviour:
   m_JoinBehavior: 1
   m_PlayerJoinedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2572566945803231177}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: AfterPlayerJoined
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_PlayerLeftEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -66,7 +78,7 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
-    m_Reference: {fileID: 2735901026993368928, guid: c819727f69bfcb7458043a96095f3652, type: 3}
+    m_Reference: {fileID: 8972078309444958162, guid: 9feb4ba2e7d781a48a460202c2b79701, type: 3}
   m_PlayerPrefab: {fileID: 690592198474284785, guid: 3d5617fb112e4ab42bc837cfc3a13363, type: 3}
   m_SplitScreen: 0
   m_MaintainAspectRatioInSplitScreen: 0
