@@ -198,16 +198,13 @@ MonoBehaviour:
   rb: {fileID: 0}
   damage: 0
   knockbackForce: 50
-  projectileSpeed: 3
-  lifetime: 0.5
+  projectileSpeed: 10
+  lifetime: 3
   velocityCap: 100
   destroyOnContact: 0
   direction: {x: 0, y: 0}
   hostDamageable: {fileID: 0}
-  minScale: 1
-  maxScale: 2
-  minBlowForce: 15
-  maxBlowForce: 30
+  meterCost: 0
 --- !u!70 &8676994759155154605
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
