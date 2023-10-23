@@ -78,3 +78,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   players: []
   playersParent: {fileID: 1694357210313376338}
+  currentLevelManager: {fileID: 2649511693552434865, guid: 95a035ee91007ae4081653f782c60dad, type: 3}

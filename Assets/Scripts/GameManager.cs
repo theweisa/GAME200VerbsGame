@@ -31,4 +31,9 @@ public class GameManager : UnitySingleton<GameManager>
         SceneManager.LoadScene(1);
     }
 
+    public void StartLevel()
+    {
+        SceneManager.LoadScene(2);
+        MultiplayerManager.Instance.InitPlayer();
+    }
 }

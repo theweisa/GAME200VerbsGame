@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8877162744564668979}
   - component: {fileID: 7217885428084049631}
   - component: {fileID: 6994594025745829478}
+  - component: {fileID: 3246766049453680742}
   m_Layer: 5
   m_Name: SelectPlayerUIPanel
   m_TagString: Untagged
@@ -62,7 +63,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: 1894551881
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &8877162744564668979
@@ -77,10 +78,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -123,6 +124,19 @@ MonoBehaviour:
   - {fileID: 7598369505425521999}
   - {fileID: 6827863829814891646}
   playerSlotsParent: {fileID: 1675131458499859710}
+--- !u!114 &3246766049453680742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2030452822265565228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24bcf7d4364116b40abfd87d6292d0d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectPlayerUIPanel: {fileID: 6994594025745829478}
 --- !u!1 &2311936607648350523
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,7 +468,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: StartLevel
         m_Mode: 1
         m_Arguments:
