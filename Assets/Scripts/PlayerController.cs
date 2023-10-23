@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
     {
         UpdateTimers();
         if (!canMove) return;
-        AlignRampPlayer();
+        //AlignRampPlayer();
         UpdatePhysics();
         ApplyMovement();
     }
