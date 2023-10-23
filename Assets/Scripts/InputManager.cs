@@ -16,7 +16,8 @@ public class InputManager : MonoBehaviour
     void Start()
     {
         //playerInputManager.DisableJoining();
-        
+        //InputAction joinAction = playerInput.actions.FindAction("Join");
+        //joinAction.performed += JoinPlayer;
     }
 
     private void Awake()
@@ -40,12 +41,20 @@ public class InputManager : MonoBehaviour
 
     }
 
+    public void JoinPlayer(InputAction.CallbackContext context)
+    {
+        //Debug.Log("player joined");
+        //print(playerInput.currentControlScheme);
+        //playerInputManager.JoinPlayer(id,);
+
+    }
     public void AfterPlayerJoined(PlayerInput player)
     {
-        print(player.currentControlScheme);
-        PlayerCombatant playerCombatant = Global.FindComponent<PlayerCombatant>(player.gameObject);
-        if (!playerCombatant) return;
-        playerCombatant.InitPlayer(id, player);
+        // player.transform.parent.gameObject.transform.SetParent(MultiplayerManager.Instance.playersParent);
+        //print(player.currentControlScheme);
+        if (!player.gameObject.CompareTag("Player")) return;
+        MultiplayerManager.Instance.AddPlayerPrefab(player.transform.parent.gameObject);
+        SelectSceneManager.Instance.selectPlayerUIPanel.ActivateSlot(id);
         id++;
     }
 }

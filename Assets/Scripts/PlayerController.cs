@@ -15,8 +15,9 @@ public class PlayerController : MonoBehaviour
     public Collider2D coll;
     public GameObject windProjectile;
     public WindMeter windMeter;
-    public Transform Fan;
-    
+    public Transform raycastedTransform;
+    public Transform rotatedTransform;
+
     [Header("Combat Variables")] [Space(4)]
     [Tooltip("distance from the player the attack is fired")]
     public float fireDist = 1.5f;
@@ -50,7 +51,9 @@ public class PlayerController : MonoBehaviour
     public float fallYThreshold = 2f;
     [Tooltip("Distance from the ground that the player is considered grounded")]
     public float minJumpDist = 0.7f;
-    
+    public float titlAngle = 5f;
+    public float rotateSpeed;
+    public PlayerInput input;
     // private variables
     private Vector2 moveDirection;
     private float baseGravityScale;
@@ -58,9 +61,12 @@ public class PlayerController : MonoBehaviour
     private bool jumped=false;
     private bool charging=false;
     private Vector2 fireDirection;
-    [HideInInspector] public PlayerInput input;
+    [SerializeField]private bool canMove;
+
+    Quaternion smoothTilt;
 
     void Awake() {
+        
         rb = rb ? rb : Global.FindComponent<Rigidbody2D>(gameObject);
         coll = coll ? coll : Global.FindComponent<Collider2D>(gameObject);
     }
@@ -68,14 +74,17 @@ public class PlayerController : MonoBehaviour
     {
         baseLinearDrag = rb.drag;
         baseGravityScale = rb.gravityScale;
+        if (!canMove)
+        {
+            rb.gravityScale = 0f;
+        }
     }
     // Update is called once per frame
     void Update()
     {
         UpdateTimers();
-        if (chargeTimeTimer > 0) {
-            Fan.localScale = new Vector2(3.5f+GetChargeRatio(), 3.5f+GetChargeRatio());
-        }
+        if (!canMove) return;
+        AlignRampPlayer();
         UpdatePhysics();
         ApplyMovement();
     }
@@ -84,6 +93,26 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Time.deltaTime*moveAcceleration*moveDirection);
     }
 
+    void AlignRampPlayer()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(raycastedTransform.position, -Vector2.up, 3f);
+        Quaternion playerTilt = Quaternion.FromToRotation(Vector2.up, hit.normal);
+        smoothTilt = Quaternion.Slerp(smoothTilt,playerTilt, Time.deltaTime * rotateSpeed);
+        Quaternion newRot = new Quaternion();
+        Vector3 vec = new Vector3
+        {
+            x = smoothTilt.eulerAngles.x,
+            y = rotatedTransform.rotation.eulerAngles.y,
+            z = smoothTilt.eulerAngles.z
+        };
+        newRot.eulerAngles = vec;
+        rotatedTransform.rotation = newRot;
+    }
+    public void ToggleMovement(bool state)
+    {
+        canMove = state;
+        rb.gravityScale = baseGravityScale;
+    }
     #region Input Callbacks
     public void Move(InputAction.CallbackContext context) {
         moveDirection = new Vector2(context.ReadValue<Vector2>().x, 0);
@@ -99,7 +128,7 @@ public class PlayerController : MonoBehaviour
     }
 
     public void FireDirection(InputAction.CallbackContext context) {
-        //if ()
+        if (!canMove) { return; }
         if (input.currentControlScheme == "Mouse&Keyboard") {
             //fireDirection = (Vector2)transform.position-context.ReadValue<Vector2>();
             fireDirection = -Global.GetRelativeMousePosition(transform.position);
@@ -108,13 +137,12 @@ public class PlayerController : MonoBehaviour
             fireDirection = context.ReadValue<Vector2>();
         }
         fireDirection.Normalize();
-        Fan.position = (Vector2)transform.position + fireDirection*fireDist;
-        Fan.rotation = Quaternion.AngleAxis(Mathf.Atan2(fireDirection.y, fireDirection.x) * Mathf.Rad2Deg, Vector3.forward);
     }
 
     public void Blow(InputAction.CallbackContext context) {
+        if (!canMove) return;
         ManageAction(ActionType.Blow, context);
-        Debug.Log("click");
+        //Debug.Log("click");
         if (windMeter.GetCurrentMeter() <= 0) {
             return;
         }
@@ -124,7 +152,6 @@ public class PlayerController : MonoBehaviour
         }
         else if (context.canceled && charging) {
             charging = false;
-            LeanTween.scale(Fan.gameObject, new Vector3(3.5f,3.5f,3.5f), 0.15f).setEaseOutExpo();
             //Vector2 fireDirection = Global.GetRelativeMousePosition(transform.position);
             // can cancel all momentum from other direction if not blow stunned
             if (blowStunTimer <= 0) {
@@ -167,16 +194,11 @@ public class PlayerController : MonoBehaviour
     void UpdateGrounded() {
         if (!IsGrounded()) return;
         // if still able to jump
-        if (jumpBufferTimer > 0f) return;
-        rb.gravityScale = baseGravityScale;
-        rb.drag = baseLinearDrag;
-        coyoteTimeTimer = coyoteTime;
-        jumped = false;
-        if (moveDirection.x * rb.velocity.x < 0) {
-            rb.drag = 1;
-        }
-        else {
+        if (jumpBufferTimer <= 0f) {
+            rb.gravityScale = baseGravityScale;
             rb.drag = baseLinearDrag;
+            coyoteTimeTimer = coyoteTime;
+            jumped = false;
         }
     }
     void UpdateAirTime() {
@@ -204,6 +226,7 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(GetBottomPoint(), minJumpDist);
     }
     bool ManageAction(ActionType action, InputAction.CallbackContext context) {
+
         if (context.canceled) {
             inputDict.Remove(action);
             return false;
