@@ -507,10 +507,8 @@ MonoBehaviour:
   coll: {fileID: 4346643400649016944}
   windProjectile: {fileID: 310256337826347110, guid: 48a596f6bca515e46a9319afa111bf3b, type: 3}
   windMeter: {fileID: 6941635912180526477}
-  raycastedTransform: {fileID: 1658557385438576356}
-  rotatedTransform: {fileID: 4565366014265838585}
+  Fan: {fileID: 1378910461127236687}
   fireDist: 1.5
-  maxChargeTime: 1
   selfKnockbackMultiplier: 0.7
   blowStunDuration: 3
   moveAcceleration: 2000
@@ -522,10 +520,7 @@ MonoBehaviour:
   jumpBuffer: 0.5
   fallYThreshold: 3
   minJumpDist: 0.7
-  titlAngle: 5
-  rotateSpeed: 2
   input: {fileID: 4252926898480704494}
-  canMove: 0
 --- !u!114 &427439996945580758
 MonoBehaviour:
   m_ObjectHideFlags: 0

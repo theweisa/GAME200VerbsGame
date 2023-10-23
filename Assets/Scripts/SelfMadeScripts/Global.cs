@@ -57,4 +57,7 @@ public static class Global {
         pos.Normalize();
         return pos;
     }
+    public static float easeInQuart(float x) {
+        return x * x * x * x;
+    }
 }
