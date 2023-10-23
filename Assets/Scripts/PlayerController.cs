@@ -76,6 +76,9 @@ public class PlayerController : MonoBehaviour
         UpdatePhysics();
         ApplyMovement();
     }
+    public void ToggleMovement(bool state) {
+        
+    }
     void ApplyMovement() {
         if (Mathf.Abs(rb.velocity.x) > movementSpeedCap) return;
         rb.AddForce(Time.deltaTime*moveAcceleration*moveDirection);
