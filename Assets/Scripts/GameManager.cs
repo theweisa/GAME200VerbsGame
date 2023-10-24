@@ -45,4 +45,5 @@ public class GameManager : UnitySingleton<GameManager>
         MultiplayerManager.Instance.InitPlayer();
 
     }
+
 }

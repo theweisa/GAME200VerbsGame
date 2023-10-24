@@ -21,4 +21,6 @@ public class UIManager : UnitySingleton<UIManager>
     {
         panel.SetActive(state);
     }
+
+
 }

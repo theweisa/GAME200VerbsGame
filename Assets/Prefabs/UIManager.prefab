@@ -44,6 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3763edc8c0cbf33409bd793dfa0056f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectPlayerUIPanel: {fileID: 6994594025745829478, guid: a308c8c2f71c00543b16e149a5518633, type: 3}
   gameUIPanel: {fileID: 6384500785190787375, guid: fa3c1c7725f6d434598bbcb55a68719e, type: 3}
-  ShouldCheckPlayerNumbers: 0
+  tutorialPanelPrefab: {fileID: 135747766404799661, guid: 11d3fa948cfc8b54183b8c8d0166290d, type: 3}
