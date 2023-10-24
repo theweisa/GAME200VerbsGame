@@ -3,15 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class SelectSceneManager : UnitySingleton<SelectSceneManager>
 {
 
     public SelectPlayerPanelController selectPlayerUIPanel;
     public SelectLevelPanelController selectLevelUIPanel;
+    [SerializeField] bool shouldCheckPlayerNumber;
+    public InputManager inputManager;
 
     public void StartSelectLevel()
     {
-        selectLevelUIPanel.gameObject.SetActive(true);
+        if (shouldCheckPlayerNumber)
+        {
+            if (!MultiplayerManager.Instance.HasEnoughPlayer())
+            {
+                Debug.Log("Need at least two players");
+                return;
+            }
+        }
         selectPlayerUIPanel.gameObject.SetActive(false);
+        foreach (var player in MultiplayerManager.Instance.players)
+        {
+            PlayerController playerController = player.GetComponent<PlayerController>();
+            playerController.eventSystem.SetSelectedGameObject(null);
+            playerController.eventSystem.SetSelectedGameObject(inputManager.LevelMenuFirstSelection);
+        }
+        selectLevelUIPanel.gameObject.SetActive(true);
+
+
     }
+
+
+
 }

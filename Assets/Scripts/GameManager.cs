@@ -30,6 +30,7 @@ public class GameManager : UnitySingleton<GameManager>
     {
         //GameManager.Instance.TogglePause(true);
         SceneManager.LoadScene(1);
+
     }
 
     public void StartLevel()

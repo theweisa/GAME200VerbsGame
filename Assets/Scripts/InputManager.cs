@@ -6,17 +6,24 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem.Users;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
 
 public class InputManager : MonoBehaviour
 {
     public PlayerInputManager playerInputManager;
     public TextMeshProUGUI text;
+    public PlayerInput currentPlayer;
+    public GameObject eventSystem;
+    public GameObject playerMenuFirstSelection;
+    public GameObject LevelMenuFirstSelection;
     int id = 1;
     // Start is called before the first frame update
     void Start()
     {
+        //DisableEventSystemInput();
         //playerInputManager.DisableJoining();
-        //InputAction joinAction = playerInput.actions.FindAction("Join");
+        //InputAction joinAction = SelectSceneManager.Instance.eventSystem.gameObject.GetComponent<PlayerInput>().actions.FindAction("Join");
         //joinAction.performed += JoinPlayer;
     }
 
@@ -43,7 +50,11 @@ public class InputManager : MonoBehaviour
 
     public void JoinPlayer(InputAction.CallbackContext context)
     {
-        //Debug.Log("player joined");
+        Debug.Log("player joined");
+        InputDevice[] inputDevices = {Keyboard.current,Mouse.current};
+        
+        //var player = PlayerInput.Instantiate(playerPrefab, id, controlScheme: "Mouse&Keyboard", -1, inputDevices);
+        //p
         //print(playerInput.currentControlScheme);
         //playerInputManager.JoinPlayer(id,);
 
@@ -53,8 +64,10 @@ public class InputManager : MonoBehaviour
         // player.transform.parent.gameObject.transform.SetParent(MultiplayerManager.Instance.playersParent);
         //print(player.currentControlScheme);
         if (!player.gameObject.CompareTag("Player")) return;
+        player.GetComponent<EventSystem>().SetSelectedGameObject(playerMenuFirstSelection);
         MultiplayerManager.Instance.AddPlayerPrefab(player.transform.parent.gameObject);
         SelectSceneManager.Instance.selectPlayerUIPanel.ActivateSlot(id);
         id++;
     }
+
 }

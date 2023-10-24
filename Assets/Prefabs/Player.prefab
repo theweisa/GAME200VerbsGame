@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 634993055878045074}
   - component: {fileID: 4252926898480704494}
+  - component: {fileID: 3562729355282877687}
+  - component: {fileID: 8054887383829613093}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Player
@@ -46,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 9feb4ba2e7d781a48a460202c2b79701, type: 3}
   m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
+  m_UIInputModule: {fileID: 8054887383829613093}
   m_DeviceLostEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -123,10 +125,6 @@ MonoBehaviour:
     m_ActionName: Player/FireDir
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: c38a0578-d5ab-40a4-a642-5ba102ead171
-    m_ActionName: Player/Join[/Keyboard/anyKey,/SwitchProControllerHID/buttonSouth]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: e9e43b8f-7f6c-4848-9fd6-9b1bf231c004
     m_ActionName: UI/Navigate[/SwitchProControllerHID/leftStick/up,/SwitchProControllerHID/rightStick/up,/SwitchProControllerHID/leftStick/down,/SwitchProControllerHID/rightStick/down,/SwitchProControllerHID/leftStick/left,/SwitchProControllerHID/rightStick/left,/SwitchProControllerHID/leftStick/right,/SwitchProControllerHID/rightStick/right,/SwitchProControllerHID/dpad,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
@@ -165,11 +163,61 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 1c3ba6d8-e518-4eea-8398-c8dd98c8d87f
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: de337780-cd4f-419a-ba34-56c307791b94
+    m_ActionName: UI/Join[/Keyboard/anyKey,/SwitchProControllerHID/buttonSouth]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &3562729355282877687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210114123034443475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16c6f78230fa4964a222622d8aae332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+  m_PlayerRoot: {fileID: 0}
+--- !u!114 &8054887383829613093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210114123034443475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: 9feb4ba2e7d781a48a460202c2b79701, type: 3}
+  m_PointAction: {fileID: -688278194943146970, guid: 9feb4ba2e7d781a48a460202c2b79701, type: 3}
+  m_MoveAction: {fileID: 2213426507725458458, guid: 9feb4ba2e7d781a48a460202c2b79701, type: 3}
+  m_SubmitAction: {fileID: -118178637022658520, guid: 9feb4ba2e7d781a48a460202c2b79701, type: 3}
+  m_CancelAction: {fileID: -4619947141529973625, guid: 9feb4ba2e7d781a48a460202c2b79701, type: 3}
+  m_LeftClickAction: {fileID: 5711593972566332793, guid: 9feb4ba2e7d781a48a460202c2b79701, type: 3}
+  m_MiddleClickAction: {fileID: -1177797449745714424, guid: 9feb4ba2e7d781a48a460202c2b79701, type: 3}
+  m_RightClickAction: {fileID: -4386714186660402869, guid: 9feb4ba2e7d781a48a460202c2b79701, type: 3}
+  m_ScrollWheelAction: {fileID: -7375854194867035839, guid: 9feb4ba2e7d781a48a460202c2b79701, type: 3}
+  m_TrackedDevicePositionAction: {fileID: -1856018739638955930, guid: 9feb4ba2e7d781a48a460202c2b79701, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: -250016780998168359, guid: 9feb4ba2e7d781a48a460202c2b79701, type: 3}
+  m_DeselectOnBackgroundClick: 0
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
 --- !u!1 &426486078444713137
 GameObject:
   m_ObjectHideFlags: 0
@@ -525,6 +573,7 @@ MonoBehaviour:
   titlAngle: 5
   rotateSpeed: 2
   input: {fileID: 4252926898480704494}
+  eventSystem: {fileID: 3562729355282877687}
   canMove: 0
 --- !u!114 &427439996945580758
 MonoBehaviour:

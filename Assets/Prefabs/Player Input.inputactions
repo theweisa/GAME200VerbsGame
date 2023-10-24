@@ -40,15 +40,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Join",
-                    "type": "Button",
-                    "id": "c38a0578-d5ab-40a4-a642-5ba102ead171",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -183,28 +174,6 @@
                     "action": "FireDir",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ed454949-9761-4083-825a-79121bde7d52",
-                    "path": "<Keyboard>/anyKey",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mouse&Keyboard",
-                    "action": "Join",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2a8d9a49-6e16-4c24-8d7f-76e4462768ec",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controller",
-                    "action": "Join",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -298,6 +267,15 @@
                     "type": "PassThrough",
                     "id": "1c3ba6d8-e518-4eea-8398-c8dd98c8d87f",
                     "expectedControlType": "Quaternion",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Join",
+                    "type": "Button",
+                    "id": "de337780-cd4f-419a-ba34-56c307791b94",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -571,7 +549,7 @@
                 {
                     "name": "",
                     "id": "f0920519-7144-4db9-a7f7-97c9823e211a",
-                    "path": "*/{Submit}",
+                    "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR;Mouse&Keyboard",
@@ -730,6 +708,28 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "abeecf90-1c39-44ac-9b93-9c6c353dad36",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse&Keyboard",
+                    "action": "Join",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9c0144f1-0c81-4e3c-ac3d-b38f609d69c2",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Join",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

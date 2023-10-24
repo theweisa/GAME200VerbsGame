@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using NaughtyAttributes;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour
     public float titlAngle = 5f;
     public float rotateSpeed;
     public PlayerInput input;
+    public EventSystem eventSystem;
     // private variables
     private Vector2 moveDirection;
     private float baseGravityScale;
@@ -84,7 +86,7 @@ public class PlayerController : MonoBehaviour
     {
         UpdateTimers();
         if (!canMove) return;
-        AlignRampPlayer();
+        //AlignRampPlayer();
         UpdatePhysics();
         ApplyMovement();
     }
