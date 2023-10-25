@@ -23,12 +23,7 @@ public class SelectSceneManager : UnitySingleton<SelectSceneManager>
             }
         }
         selectPlayerUIPanel.gameObject.SetActive(false);
-        foreach (var player in MultiplayerManager.Instance.players)
-        {
-            PlayerController playerController = player.GetComponent<PlayerController>();
-            playerController.eventSystem.SetSelectedGameObject(null);
-            playerController.eventSystem.SetSelectedGameObject(inputManager.LevelMenuFirstSelection);
-        }
+        MultiplayerManager.Instance.SetPlayerEventSystemFirstSelection(inputManager.LevelMenuFirstSelection);
         selectLevelUIPanel.gameObject.SetActive(true);
 
 
