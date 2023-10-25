@@ -41,6 +41,7 @@ public class UIManager : UnitySingleton<UIManager>
 
     public void OnDisable()
     {
+
         MultiplayerManager.Instance.ResetGame();
         Debug.Log("UI Manager is Disabled");
     }
