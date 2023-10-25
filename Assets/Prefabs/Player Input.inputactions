@@ -24,9 +24,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Fire",
+                    "name": "WeakFire",
                     "type": "Button",
                     "id": "5ed8c63a-6c2f-44b2-846b-ffe8dc3da832",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "StrongFire",
+                    "type": "Button",
+                    "id": "e336ace1-d208-445b-b314-4f8236d15037",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -110,7 +119,7 @@
                 {
                     "name": "",
                     "id": "2bac254d-fd3d-4f71-bc5e-34fba4d54fb5",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
@@ -124,7 +133,7 @@
                     "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Controller",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -136,7 +145,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse&Keyboard",
-                    "action": "Fire",
+                    "action": "WeakFire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -147,18 +156,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
-                    "action": "Fire",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "52b4ace7-28f3-4d9c-a0aa-0b8ad6eca299",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Fire",
+                    "action": "WeakFire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -203,6 +201,28 @@
                     "processors": "",
                     "groups": "Controller",
                     "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d02207d0-49d0-4f2b-9a6d-49c9eab793dc",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse&Keyboard",
+                    "action": "StrongFire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "49a23d76-149c-4a5c-8054-7275cc0b4f15",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "StrongFire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
