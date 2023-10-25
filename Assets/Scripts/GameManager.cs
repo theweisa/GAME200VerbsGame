@@ -47,4 +47,15 @@ public class GameManager : UnitySingleton<GameManager>
 
     }
 
+    public void ExitLevel()
+    {
+
+        TogglePause(false);
+       SceneManager.LoadScene(0);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

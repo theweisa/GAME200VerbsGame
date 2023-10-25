@@ -8,6 +8,7 @@ public class UIManager : UnitySingleton<UIManager>
     public PauseMenuPanelController pauseMenuPanel;
     public GameObject tutorialPanel;
     public GameObject menuFirstSelection;
+    public GameObject tutorailFirtsSelection;
     public GameObject mainscenFirstSelection;
     // Start is called before the first frame update
 
@@ -28,6 +29,7 @@ public class UIManager : UnitySingleton<UIManager>
 
     public void StartTutroial()
     {
+        MultiplayerManager.Instance.SetPlayerEventSystemFirstSelection(tutorailFirtsSelection);
         tutorialPanel.SetActive(true);
     }
 
@@ -35,5 +37,11 @@ public class UIManager : UnitySingleton<UIManager>
     {
         tutorialPanel.SetActive(false);
         MultiplayerManager.Instance.SetPlayerEventSystemFirstSelection(menuFirstSelection);
+    }
+
+    public void OnDisable()
+    {
+        MultiplayerManager.Instance.ResetGame();
+        Debug.Log("UI Manager is Disabled");
     }
 }
