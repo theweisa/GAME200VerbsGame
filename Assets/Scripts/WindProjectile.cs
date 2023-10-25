@@ -5,13 +5,7 @@ using UnityEngine;
 public class WindProjectile : BaseDamageSource
 {
     [Header("Wind Projectile Variables")] [Space(4)]
-    public float minScale = 1f;
-    public float maxScale = 2f;
-    public float minBlowForce = 15f;
-    public float maxBlowForce = 30f;
-    public float minMeterCost = 10f;
-    public float maxMeterCost = 20f;
-    [HideInInspector] public float meterCost;
+    public float meterCost = 10f;
     protected override void Start() {
         base.Start();
         destroyOnContact = false;
@@ -24,14 +18,10 @@ public class WindProjectile : BaseDamageSource
         }, rb.velocity.magnitude, 0, lifetime).setEaseInQuart();
     }
 
-    public void InitBlowProjectile(float chargeRatio) {
-        knockbackForce = minBlowForce+(maxBlowForce-minBlowForce)*chargeRatio;
-        minScale *= 1 + chargeRatio;
-        maxScale *= 1 + chargeRatio;
-        LeanTween.value(gameObject, (float val) => {
+    public void InitBlowProjectile() {
+        /*LeanTween.value(gameObject, (float val) => {
             transform.localScale = new Vector2(val, val);
-        }, minScale, maxScale, lifetime).setEaseOutQuart();
-        meterCost = minMeterCost + chargeRatio * (maxMeterCost-minMeterCost);
+        }, minScale, maxScale, lifetime).setEaseOutQuart();*/
     }
 
     public override void ApplyDamage(BaseDamageable damageable)

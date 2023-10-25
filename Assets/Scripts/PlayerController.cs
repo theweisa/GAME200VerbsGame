@@ -22,9 +22,6 @@ public class PlayerController : MonoBehaviour
     [Header("Combat Variables")] [Space(4)]
     [Tooltip("distance from the player the attack is fired")]
     public float fireDist = 1.5f;
-    [Tooltip("Time it takes to reach max charge")]
-    public float maxChargeTime = 1f;
-    protected float chargeTimeTimer;
     [Tooltip("Self knockback multiplier the user receives from blow attacks")]
     public float selfKnockbackMultiplier = 0.7f;
     [Tooltip("How long the player gets stunned out of being able to change momentum with wind after being hit")]
@@ -142,36 +139,26 @@ public class PlayerController : MonoBehaviour
     }
 
     public void Blow(InputAction.CallbackContext context) {
-        if (!canMove) return;
-        ManageAction(ActionType.Blow, context);
-        //Debug.Log("click");
-        if (windMeter.GetCurrentMeter() <= 0) {
+        if (!ManageAction(ActionType.Blow, context) || !canMove || windMeter.GetCurrentMeter() <= 0) {
             return;
         }
-        if (context.started) {
-            chargeTimeTimer = maxChargeTime;
-            charging = true;
+        //Vector2 fireDirection = Global.GetRelativeMousePosition(transform.position);
+        // can cancel all momentum from other direction if not blow stunned
+        if (blowStunTimer <= 0) {
+            rb.velocity = new Vector2(
+                rb.velocity.x * -fireDirection.x < 0 ? 0 : rb.velocity.x,
+                rb.velocity.y * -fireDirection.y < 0 ? 0 : rb.velocity.y
+            );
         }
-        else if (context.canceled && charging) {
-            charging = false;
-            //Vector2 fireDirection = Global.GetRelativeMousePosition(transform.position);
-            // can cancel all momentum from other direction if not blow stunned
-            if (blowStunTimer <= 0) {
-                rb.velocity = new Vector2(
-                    rb.velocity.x * -fireDirection.x < 0 ? 0 : rb.velocity.x,
-                    rb.velocity.y * -fireDirection.y < 0 ? 0 : rb.velocity.y
-                );
-            }
-            if (fireDirection.y < 0) {
-                jumped=false;
-            }
-            Quaternion rotation = Quaternion.AngleAxis(Mathf.Atan2(fireDirection.y, fireDirection.x) * Mathf.Rad2Deg, Vector3.forward);
-            WindProjectile proj = Instantiate(windProjectile, (Vector2)transform.position+fireDirection*fireDist, rotation, GameManager.Instance.instanceManager).GetComponent<WindProjectile>();
-            proj.InitDamageSource(Global.FindComponent<PlayerCombatant>(gameObject), fireDirection);
-            proj.InitBlowProjectile(GetChargeRatio());
-            rb.AddForce(-fireDirection*proj.knockbackForce*selfKnockbackMultiplier, ForceMode2D.Impulse);
-            StartCoroutine(windMeter.DepleteMeter(proj.meterCost));
+        if (fireDirection.y < 0) {
+            jumped=false;
         }
+        Quaternion rotation = Quaternion.AngleAxis(Mathf.Atan2(fireDirection.y, fireDirection.x) * Mathf.Rad2Deg, Vector3.forward);
+        WindProjectile proj = Instantiate(windProjectile, (Vector2)transform.position+fireDirection*fireDist, rotation, GameManager.Instance.instanceManager).GetComponent<WindProjectile>();
+        proj.InitDamageSource(Global.FindComponent<PlayerCombatant>(gameObject), fireDirection);
+        proj.InitBlowProjectile();
+        rb.AddForce(-fireDirection*proj.knockbackForce*selfKnockbackMultiplier, ForceMode2D.Impulse);
+        StartCoroutine(windMeter.DepleteMeter(proj.meterCost));
     }
     public void BlowStun() {
         blowStunTimer = blowStunDuration;
@@ -182,16 +169,12 @@ public class PlayerController : MonoBehaviour
     void UpdateTimers() {
         jumpBufferTimer = Mathf.Max(jumpBufferTimer-Time.deltaTime, 0f);
         coyoteTimeTimer = Mathf.Max(coyoteTimeTimer-Time.deltaTime, 0f);
-        chargeTimeTimer = Mathf.Max(chargeTimeTimer-Time.deltaTime, 0f);
         blowStunTimer = Mathf.Max(blowStunTimer-Time.deltaTime, 0f);
     }
     void UpdatePhysics() {
         rb.velocity = velocityCap > 0 ? Vector2.ClampMagnitude(rb.velocity, velocityCap) : rb.velocity;
         UpdateGrounded();
         UpdateAirTime();
-    }
-    public float GetChargeRatio() {
-        return 1f-(chargeTimeTimer/maxChargeTime);
     }
     void UpdateGrounded() {
         if (!IsGrounded()) return;
