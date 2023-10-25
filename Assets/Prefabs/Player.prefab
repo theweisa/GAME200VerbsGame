@@ -167,6 +167,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: de337780-cd4f-419a-ba34-56c307791b94
     m_ActionName: UI/Join[/Keyboard/anyKey,/SwitchProControllerHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1712433157382054058}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OpenPauseMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: edd7d9fc-c0ef-46bc-8d75-ab5df16e719f
+    m_ActionName: Player/Menu[/Keyboard/tab,/SwitchProControllerHID/start]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

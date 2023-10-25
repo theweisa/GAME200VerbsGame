@@ -17,8 +17,14 @@ public class PauseMenuPanelController : MonoBehaviour
         
     }
 
+    public void OnEnable()
+    {
+        GameManager.Instance.TogglePause(true);
+        MultiplayerManager.Instance.SetPlayerEventSystemFirstSelection(UIManager.Instance.mainscenFirstSelection);
+    }
     public void ExitPauseMenu()
     {
+        GameManager.Instance.TogglePause(false);
         gameObject.SetActive(false);
     }
 }

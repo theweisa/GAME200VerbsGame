@@ -7,6 +7,8 @@ public class UIManager : UnitySingleton<UIManager>
     public GameUIPanelController gameUIPanel;
     public PauseMenuPanelController pauseMenuPanel;
     public GameObject tutorialPanel;
+    public GameObject menuFirstSelection;
+    public GameObject mainscenFirstSelection;
     // Start is called before the first frame update
 
     private void Start()
@@ -32,5 +34,6 @@ public class UIManager : UnitySingleton<UIManager>
     public void StopTutroial()
     {
         tutorialPanel.SetActive(false);
+        MultiplayerManager.Instance.SetPlayerEventSystemFirstSelection(menuFirstSelection);
     }
 }

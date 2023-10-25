@@ -23,7 +23,7 @@ public class GameManager : UnitySingleton<GameManager>
 
     public void TogglePause(bool shouldPause)
     {
-        Time.timeScale = shouldPause ? 1.0f : 0.0f;
+        Time.timeScale = shouldPause ? 0.0f : 1.0f;
     }
 
     public void StartGame()
@@ -43,6 +43,7 @@ public class GameManager : UnitySingleton<GameManager>
         }
         SceneManager.LoadScene(2);
         MultiplayerManager.Instance.InitPlayer();
+        
 
     }
 

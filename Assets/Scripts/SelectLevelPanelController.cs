@@ -22,7 +22,10 @@ public class SelectLevelPanelController : MonoBehaviour
     }
     public void InitStartLevel()
     {
-       
+       if(currentSelectedSlot == null)
+        {
+            return;
+        }
         MultiplayerManager.Instance.SetStartLevel(currentSelectedSlot.slotIndex);
     }
 

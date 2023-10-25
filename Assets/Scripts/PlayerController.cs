@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
-    public enum ActionType { Jump, Blow }
+    public enum ActionType { Jump, Blow , OpenMenu}
     public Dictionary<ActionType, InputAction.CallbackContext> inputDict = new Dictionary<ActionType, InputAction.CallbackContext>();
 
     [Header("References")] [Space(4)]
@@ -172,6 +172,14 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(-fireDirection*proj.knockbackForce*selfKnockbackMultiplier, ForceMode2D.Impulse);
             StartCoroutine(windMeter.DepleteMeter(proj.meterCost));
         }
+    }
+
+    public void OpenPauseMenu()
+    {
+        Debug.Log("Open Menu");
+
+        UIManager.Instance.pauseMenuPanel.gameObject.SetActive(true);
+
     }
     public void BlowStun() {
         blowStunTimer = blowStunDuration;
