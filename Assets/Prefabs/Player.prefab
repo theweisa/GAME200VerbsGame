@@ -95,7 +95,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1712433157382054058}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
-        m_MethodName: Blow
+        m_MethodName: WeakBlow
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -183,6 +183,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: edd7d9fc-c0ef-46bc-8d75-ab5df16e719f
     m_ActionName: Player/Menu[/Keyboard/tab,/SwitchProControllerHID/start]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1712433157382054058}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: StrongBlow
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e336ace1-d208-445b-b314-4f8236d15037
+    m_ActionName: Player/StrongFire[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -386,7 +402,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9070837843333036514
 Transform:
   m_ObjectHideFlags: 0
@@ -567,14 +583,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 8095707129505713228}
-  sprite: {fileID: 0}
+  sprite: {fileID: 4510376058030336992}
+  playerAnimator: {fileID: 4458281619969734698}
   coll: {fileID: 4346643400649016944}
-  windProjectile: {fileID: 310256337826347110, guid: 48a596f6bca515e46a9319afa111bf3b, type: 3}
+  weakWindProjectile: {fileID: 310256337826347110, guid: 48a596f6bca515e46a9319afa111bf3b, type: 3}
+  strongWindProjectile: {fileID: 310256337826347110, guid: 47cb2779ac2c2264eafeaecbf356f674, type: 3}
   windMeter: {fileID: 6941635912180526477}
   raycastedTransform: {fileID: 1658557385438576356}
   rotatedTransform: {fileID: 4565366014265838585}
   fireDist: 1.5
-  maxChargeTime: 1
   selfKnockbackMultiplier: 0.7
   blowStunDuration: 3
   moveAcceleration: 2000
@@ -911,7 +928,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3287579116487542924
 Transform:
   m_ObjectHideFlags: 0
@@ -1073,6 +1090,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4072047080476780507}
   - component: {fileID: 4510376058030336992}
+  - component: {fileID: 4458281619969734698}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -1141,7 +1159,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: 1346731356, guid: 6e9dbd9e5b1f9f04997860f0e395510c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1152,6 +1170,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &4458281619969734698
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6380278720382637311}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b02a52516218cf64788eb885745a8f26, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6775510253316396055
 GameObject:
   m_ObjectHideFlags: 0
@@ -1423,7 +1462,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7947194584798799668
 Transform:
   m_ObjectHideFlags: 0

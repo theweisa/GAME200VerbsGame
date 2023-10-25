@@ -6,6 +6,7 @@ public class WindProjectile : BaseDamageSource
 {
     [Header("Wind Projectile Variables")] [Space(4)]
     public float meterCost = 10f;
+    public bool strong;
     protected override void Start() {
         base.Start();
         destroyOnContact = false;
@@ -13,15 +14,16 @@ public class WindProjectile : BaseDamageSource
     public override void InitDamageSource(BaseDamageable damageable, Vector2 dir)
     {
         base.InitDamageSource(damageable, dir);
-        LeanTween.value(gameObject, (float val) => {
-            rb.velocity = Vector2.ClampMagnitude(rb.velocity, val);
-        }, rb.velocity.magnitude, 0, lifetime).setEaseInQuart();
+        LeanTween.scale(gameObject, transform.localScale*1.3f, lifetime).setEaseOutExpo();
     }
 
-    public void InitBlowProjectile() {
-        /*LeanTween.value(gameObject, (float val) => {
-            transform.localScale = new Vector2(val, val);
-        }, minScale, maxScale, lifetime).setEaseOutQuart();*/
+    public override void UpdateVelocity() {
+        base.UpdateVelocity();
+        //rb.velocity = Vector2.ClampMagnitude(rb.velocity, baseVelocity * (lifetimeTimer/lifetime));
+    }
+
+    public void FixedUpdate() {
+        UpdateVelocity();
     }
 
     public override void ApplyDamage(BaseDamageable damageable)
@@ -33,6 +35,10 @@ public class WindProjectile : BaseDamageSource
     }
 
     public override void OnTriggerEnter2D(Collider2D coll) {
+        if (!strong && coll.gameObject.layer == LayerMask.NameToLayer("Environment")) {
+            StartCoroutine(OnDeath());
+            return;
+        }
         Rigidbody2D objRb = Global.FindComponent<Rigidbody2D>(coll.gameObject);
         if (!objRb) return;
         BaseDamageable dmgObj = Global.FindComponent<BaseDamageable>(coll.gameObject);

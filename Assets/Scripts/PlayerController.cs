@@ -13,8 +13,10 @@ public class PlayerController : MonoBehaviour
     [Header("References")] [Space(4)]
     public Rigidbody2D rb;
     public SpriteRenderer sprite;
+    public Animator playerAnimator;
     public Collider2D coll;
-    public GameObject windProjectile;
+    public GameObject weakWindProjectile;
+    public GameObject strongWindProjectile;
     public WindMeter windMeter;
     public Transform raycastedTransform;
     public Transform rotatedTransform;
@@ -85,6 +87,7 @@ public class PlayerController : MonoBehaviour
         if (!canMove) return;
         //AlignRampPlayer();
         UpdatePhysics();
+        UpdateFireDirection();
         ApplyMovement();
     }
     void ApplyMovement() {
@@ -138,10 +141,21 @@ public class PlayerController : MonoBehaviour
         fireDirection.Normalize();
     }
 
-    public void Blow(InputAction.CallbackContext context) {
+    public void WeakBlow(InputAction.CallbackContext context) {
         if (!ManageAction(ActionType.Blow, context) || !canMove || windMeter.GetCurrentMeter() <= 0) {
             return;
         }
+        Blow(false);
+    }
+
+    public void StrongBlow(InputAction.CallbackContext context) {
+        if (!ManageAction(ActionType.Blow, context) || !canMove || windMeter.GetCurrentMeter() <= 0) {
+            return;
+        }
+        Blow(true);
+    }
+
+    void Blow(bool strong) {
         //Vector2 fireDirection = Global.GetRelativeMousePosition(transform.position);
         // can cancel all momentum from other direction if not blow stunned
         if (blowStunTimer <= 0) {
@@ -154,9 +168,15 @@ public class PlayerController : MonoBehaviour
             jumped=false;
         }
         Quaternion rotation = Quaternion.AngleAxis(Mathf.Atan2(fireDirection.y, fireDirection.x) * Mathf.Rad2Deg, Vector3.forward);
-        WindProjectile proj = Instantiate(windProjectile, (Vector2)transform.position+fireDirection*fireDist, rotation, GameManager.Instance.instanceManager).GetComponent<WindProjectile>();
+        WindProjectile proj;
+        if (strong) {
+            proj = Instantiate(strongWindProjectile, (Vector2)transform.position+fireDirection*fireDist, rotation, GameManager.Instance.instanceManager).GetComponent<WindProjectile>();
+        }
+        else {
+            proj = Instantiate(weakWindProjectile, (Vector2)transform.position+fireDirection*fireDist, rotation, GameManager.Instance.instanceManager).GetComponent<WindProjectile>();
+        }
+        //WindProjectile proj = Instantiate(windProjectile, (Vector2)transform.position+fireDirection*fireDist, rotation, GameManager.Instance.instanceManager).GetComponent<WindProjectile>();
         proj.InitDamageSource(Global.FindComponent<PlayerCombatant>(gameObject), fireDirection);
-        proj.InitBlowProjectile();
         rb.AddForce(-fireDirection*proj.knockbackForce*selfKnockbackMultiplier, ForceMode2D.Impulse);
         StartCoroutine(windMeter.DepleteMeter(proj.meterCost));
     }
@@ -165,7 +185,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Open Menu");
 
-        UIManager.Instance.pauseMenuPanel.gameObject.SetActive(true);
+        //UIManager.Instance.pauseMenuPanel.gameObject.SetActive(true);
 
     }
     public void BlowStun() {
@@ -179,15 +199,25 @@ public class PlayerController : MonoBehaviour
         coyoteTimeTimer = Mathf.Max(coyoteTimeTimer-Time.deltaTime, 0f);
         blowStunTimer = Mathf.Max(blowStunTimer-Time.deltaTime, 0f);
     }
+    void UpdateFireDirection() {
+        sprite.flipX = fireDirection.x < 0;
+    }
     void UpdatePhysics() {
         rb.velocity = velocityCap > 0 ? Vector2.ClampMagnitude(rb.velocity, velocityCap) : rb.velocity;
-        UpdateGrounded();
-        UpdateAirTime();
+        playerAnimator.SetFloat("yVelocity", rb.velocity.y);
+        if (IsGrounded()) {
+            UpdateGrounded();
+        }
+        else {
+            UpdateAirTime();
+        }
     }
     void UpdateGrounded() {
-        if (!IsGrounded()) return;
+        playerAnimator.Play("playerIdle");
         // if still able to jump
         if (jumpBufferTimer <= 0f) {
+            playerAnimator.SetBool("grounded", true);
+            //playerAnimator.SetBool("falling", false);
             rb.gravityScale = baseGravityScale;
             rb.drag = baseLinearDrag;
             coyoteTimeTimer = coyoteTime;
@@ -195,11 +225,12 @@ public class PlayerController : MonoBehaviour
         }
     }
     void UpdateAirTime() {
-        if (IsGrounded()) return;
+        playerAnimator.SetBool("grounded", false);
         rb.drag = baseLinearDrag * 2f;
         rb.gravityScale = baseGravityScale;
         //rb.drag = baseLinearDrag * 0.15f;
         if (rb.velocity.y < fallYThreshold) {
+            //playerAnimator.SetBool("falling", true);
             rb.gravityScale = baseGravityScale*fallMultiplier;
         }
         else if (rb.velocity.y > 0f && jumped && !inputDict.ContainsKey(ActionType.Jump)) {

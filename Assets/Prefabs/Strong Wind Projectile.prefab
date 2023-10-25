@@ -102,19 +102,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3718666037246456324, guid: 607bfe3cad80f9e4487583ac3716e4de, type: 3}
       propertyPath: m_Name
-      value: Wind Projectile
+      value: Strong Wind Projectile
       objectReference: {fileID: 0}
     - target: {fileID: 4641335723244690986, guid: 607bfe3cad80f9e4487583ac3716e4de, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4641335723244690986, guid: 607bfe3cad80f9e4487583ac3716e4de, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4641335723244690986, guid: 607bfe3cad80f9e4487583ac3716e4de, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4641335723244690986, guid: 607bfe3cad80f9e4487583ac3716e4de, type: 3}
       propertyPath: m_LocalPosition.x
@@ -160,6 +160,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6318873813470365523, guid: 607bfe3cad80f9e4487583ac3716e4de, type: 3}
+      propertyPath: m_LinearDrag
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3674635367751043948, guid: 607bfe3cad80f9e4487583ac3716e4de, type: 3}
     - {fileID: 7870905656600206366, guid: 607bfe3cad80f9e4487583ac3716e4de, type: 3}
@@ -197,14 +201,15 @@ MonoBehaviour:
   contactedDamageables: []
   rb: {fileID: 0}
   damage: 0
-  knockbackForce: 20
-  projectileSpeed: 3
+  knockbackForce: 30
+  projectileSpeed: 25
   lifetime: 0.5
   velocityCap: 100
   destroyOnContact: 0
   direction: {x: 0, y: 0}
   hostDamageable: {fileID: 0}
-  meterCost: 0
+  meterCost: 15
+  strong: 1
 --- !u!70 &8676994759155154605
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
