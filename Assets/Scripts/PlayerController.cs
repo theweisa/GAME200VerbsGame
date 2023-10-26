@@ -60,7 +60,6 @@ public class PlayerController : MonoBehaviour
     private float baseGravityScale;
     private float baseLinearDrag;
     private bool jumped=false;
-    private bool charging=false;
     private Vector2 fireDirection;
     [SerializeField]private bool canMove;
 
@@ -85,7 +84,7 @@ public class PlayerController : MonoBehaviour
     {
         UpdateTimers();
         if (!canMove) return;
-        //AlignRampPlayer();
+        AlignRampPlayer();
         UpdatePhysics();
         UpdateFireDirection();
         ApplyMovement();
@@ -95,11 +94,24 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Time.deltaTime*moveAcceleration*moveDirection);
     }
 
+    /*
+    How to try this:
+    only when the player is grounded, check the angle of the ground beneath them
+    if the angle goes above 45, have the player follow the rotation
+    when in the air, the player is always at 0 degree rotation
+    */
     void AlignRampPlayer()
     {
-        RaycastHit2D hit = Physics2D.Raycast(raycastedTransform.position, -Vector2.up, 3f);
+        if (!IsGrounded()) return;
+        RaycastHit2D hit = Physics2D.Raycast(GetBottomPoint(), -Vector2.up, 2f);
         Quaternion playerTilt = Quaternion.FromToRotation(Vector2.up, hit.normal);
-        smoothTilt = Quaternion.Slerp(smoothTilt,playerTilt, Time.deltaTime * rotateSpeed);
+        Debug.Log(playerTilt.eulerAngles.z);
+        if (playerTilt.eulerAngles.z > 45 || playerTilt.eulerAngles.z < 360-45) {
+            Debug.Log("rotate lmao");
+            transform.rotation = playerTilt;
+        }
+
+        /*smoothTilt = Quaternion.Slerp(smoothTilt,playerTilt, Time.deltaTime * rotateSpeed);
         Quaternion newRot = new Quaternion();
         Vector3 vec = new Vector3
         {
@@ -107,8 +119,9 @@ public class PlayerController : MonoBehaviour
             y = rotatedTransform.rotation.eulerAngles.y,
             z = smoothTilt.eulerAngles.z
         };
+        //Debug.Log(vec);
         newRot.eulerAngles = vec;
-        rotatedTransform.rotation = newRot;
+        rotatedTransform.rotation = newRot;*/
     }
     public void ToggleMovement(bool state)
     {
@@ -260,7 +273,10 @@ public class PlayerController : MonoBehaviour
         return false;
     }
     private Vector2 GetBottomPoint() {
-        return new Vector2(coll.transform.position.x+coll.offset.x, coll.transform.position.y+coll.offset.y-coll.bounds.extents.y);
+        Vector3 dir = transform.rotation * Vector3.up;
+        Vector2 collMag = new Vector2(coll.offset.x-coll.bounds.extents.x, coll.offset.y-coll.bounds.extents.y);
+        Debug.Log(dir);
+        return new Vector2(coll.transform.position.x, coll.transform.position.y) + collMag*dir;
     }
     #endregion
 }
