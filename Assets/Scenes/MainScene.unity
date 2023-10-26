@@ -643,6 +643,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 135747766404799661, guid: 11d3fa948cfc8b54183b8c8d0166290d, type: 3}
   m_PrefabInstance: {fileID: 1391661510}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1391661512 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1259962083992878776, guid: 11d3fa948cfc8b54183b8c8d0166290d, type: 3}
+  m_PrefabInstance: {fileID: 1391661510}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1425115773
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -913,6 +918,10 @@ PrefabInstance:
       propertyPath: mainscenFirstSelection
       value: 
       objectReference: {fileID: 1054380392}
+    - target: {fileID: 4822072498125110541, guid: 2f6481fbde511af4e837f1673f00e639, type: 3}
+      propertyPath: tutorailFirtsSelection
+      value: 
+      objectReference: {fileID: 1391661512}
     - target: {fileID: 5364226874998749960, guid: 2f6481fbde511af4e837f1673f00e639, type: 3}
       propertyPath: m_Name
       value: UIManager
@@ -1029,6 +1038,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 145230949495548637, guid: 24b45c9750fdf3b45b3ecf19209192e6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ExitLevel
+      objectReference: {fileID: 0}
     - target: {fileID: 3417242421942788569, guid: 24b45c9750fdf3b45b3ecf19209192e6, type: 3}
       propertyPath: m_Pivot.x
       value: 0

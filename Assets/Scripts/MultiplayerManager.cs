@@ -80,4 +80,15 @@ public class MultiplayerManager : UnitySingleton<MultiplayerManager>
             playerController.eventSystem.SetSelectedGameObject(obj);
         }
     }
+
+    public void ResetGame()
+    {
+        id = 1;
+        players.Clear();
+        for (int i = 0; i < playersParent.childCount; i++)
+        {
+            Destroy(playersParent.GetChild(i).gameObject);
+        }
+        currentLevelManager = null;
+    }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using NaughtyAttributes;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
@@ -144,6 +145,7 @@ public class PlayerController : MonoBehaviour
 
     public void FireDirection(InputAction.CallbackContext context) {
         if (!canMove) { return; }
+        if (gameObject.IsDestroyed()) return;
         if (input.currentControlScheme == "Mouse&Keyboard") {
             //fireDirection = (Vector2)transform.position-context.ReadValue<Vector2>();
             fireDirection = -Global.GetRelativeMousePosition(transform.position);
@@ -198,7 +200,7 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Open Menu");
 
-        //UIManager.Instance.pauseMenuPanel.gameObject.SetActive(true);
+        UIManager.Instance.pauseMenuPanel.gameObject.SetActive(true);
 
     }
     public void BlowStun() {
