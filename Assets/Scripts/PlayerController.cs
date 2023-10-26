@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     private float blowStunTimer;
 
     [Header("Platformer Feel Variables")] [Space(4)]
+    public float minRotateAngle = 30f;
     [Tooltip("How fast the player accelerates")]
     public float moveAcceleration;
     [Tooltip("Force Applied from Jumping")]
@@ -103,26 +104,28 @@ public class PlayerController : MonoBehaviour
     */
     void AlignRampPlayer()
     {
-        if (!IsGrounded()) return;
-        RaycastHit2D hit = Physics2D.Raycast(GetBottomPoint(), -Vector2.up, 2f);
+        if (!IsGrounded()) {
+            transform.rotation = Quaternion.identity;
+            return;
+        }
+        RaycastHit2D hit = Physics2D.Raycast(GetBottomPoint(), -Vector2.up, 3);
+        if (!hit) {
+            Debug.Log("erm");
+            return;
+        }
+        Debug.Log("hit");
         Quaternion playerTilt = Quaternion.FromToRotation(Vector2.up, hit.normal);
-        Debug.Log(playerTilt.eulerAngles.z);
-        if (playerTilt.eulerAngles.z > 45 || playerTilt.eulerAngles.z < 360-45) {
-            Debug.Log("rotate lmao");
+        // if the angles are, offset from 0/180, 
+        // ie on the left, -45 -> 45 is non rotate range
+        // or: + 360 % 360, so 315 && 45
+        // on the other end, 135 -> 225. 
+        float angle = (playerTilt.eulerAngles.z+360)%360;
+        if (!(angle > minRotateAngle && angle < 360-minRotateAngle) && !(angle > 180-minRotateAngle && angle < 180+minRotateAngle)) {
+        //if (playerTilt.eulerAngles.z > minRotateAngle || playerTilt.eulerAngles.z > 180+minRotateAngle) {
+            Debug.Log($"tilt: {playerTilt.eulerAngles}");
+            Debug.Log($"rotate by {angle}");
             transform.rotation = playerTilt;
         }
-
-        /*smoothTilt = Quaternion.Slerp(smoothTilt,playerTilt, Time.deltaTime * rotateSpeed);
-        Quaternion newRot = new Quaternion();
-        Vector3 vec = new Vector3
-        {
-            x = smoothTilt.eulerAngles.x,
-            y = rotatedTransform.rotation.eulerAngles.y,
-            z = smoothTilt.eulerAngles.z
-        };
-        //Debug.Log(vec);
-        newRot.eulerAngles = vec;
-        rotatedTransform.rotation = newRot;*/
     }
     public void ToggleMovement(bool state)
     {
@@ -263,6 +266,12 @@ public class PlayerController : MonoBehaviour
         // Draw a yellow sphere at the bottom point
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(GetBottomPoint(), minJumpDist);
+        /*float angle = (transform.rotation.eulerAngles.z+270)%360;
+        Vector2 center = new Vector2(
+            coll.transform.position.x + Mathf.Abs(coll.offset.y) * Mathf.Cos(Mathf.Deg2Rad * angle),
+            coll.transform.position.y + Mathf.Abs(coll.offset.y) * Mathf.Sin(Mathf.Deg2Rad * angle)
+        );
+        Gizmos.DrawWireSphere(center, 1);*/
     }
     bool ManageAction(ActionType action, InputAction.CallbackContext context) {
 
@@ -275,10 +284,19 @@ public class PlayerController : MonoBehaviour
         return false;
     }
     private Vector2 GetBottomPoint() {
-        Vector3 dir = transform.rotation * Vector3.up;
-        Vector2 collMag = new Vector2(coll.offset.x-coll.bounds.extents.x, coll.offset.y-coll.bounds.extents.y);
-        Debug.Log(dir);
-        return new Vector2(coll.transform.position.x, coll.transform.position.y) + collMag*dir;
+        float angle = transform.rotation.eulerAngles.z-90;
+        Vector2 offset = new Vector2(
+            coll.bounds.extents.x * Mathf.Cos(Mathf.Deg2Rad * angle),
+            coll.bounds.extents.y * Mathf.Sin(Mathf.Deg2Rad * angle)
+        );
+        Vector2 center = new Vector2(
+            coll.transform.position.x + Mathf.Abs(coll.offset.y) * Mathf.Cos(Mathf.Deg2Rad * angle),
+            coll.transform.position.y + Mathf.Abs(coll.offset.y) * Mathf.Sin(Mathf.Deg2Rad * angle)
+        );
+        /*Debug.Log($"Angle: {angle}");
+        Debug.Log($"pos offset: {offset}");
+        Debug.Log($"Center: {center}");*/
+        return center+offset;
     }
     #endregion
 }
