@@ -23,11 +23,13 @@ public class GameManager : UnitySingleton<GameManager>
 
     public void TogglePause(bool shouldPause)
     {
+        AudioManager.Instance.Play("select", 1f, 0.1f);
         Time.timeScale = shouldPause ? 0.0f : 1.0f;
     }
 
     public void StartGame()
     {
+        AudioManager.Instance.Play("select", 1f, 0.1f);
         TogglePause(false);
         //GameManager.Instance.TogglePause(true);
         isGameEnd = false;
@@ -37,6 +39,7 @@ public class GameManager : UnitySingleton<GameManager>
 
     public void StartLevel()
     {
+        AudioManager.Instance.Play("select", 1f, 0.1f);
         SelectSceneManager.Instance.selectLevelUIPanel.InitStartLevel();
         if (MultiplayerManager.Instance.currentLevelManager == null)
         {
@@ -53,18 +56,19 @@ public class GameManager : UnitySingleton<GameManager>
     {
 
         TogglePause(false);
-       SceneManager.LoadScene(0);
+        SceneManager.LoadScene(0);
     }
 
     public void QuitGame()
     {
+        AudioManager.Instance.Play("select", 1f, 0.1f);
         Application.Quit();
     }
 
     public void CheckGameState()
     {
-        if (MultiplayerManager.Instance.players.Count != 1) return;
-
+        if (MultiplayerManager.Instance.players.Count > 1) return;
+        AudioManager.Instance.Stop("game", true);
         Debug.Log(MultiplayerManager.Instance.players[0].name + "wins");
         isGameEnd = true;
         UIManager.Instance.StartWinPanel();

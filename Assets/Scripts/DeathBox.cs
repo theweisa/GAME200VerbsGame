@@ -22,11 +22,13 @@ public class DeathBox : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D coll) {
         PlayerCombatant player = Global.FindComponent<PlayerCombatant>(coll.gameObject);
-        if (coll.gameObject.tag != "Player" || !player) return;
+        Debug.Log("hit");
+        if (!coll.gameObject.CompareTag("Player") || !player) return;
+        Debug.Log("hit");
         StartCoroutine(player.OnDeath());
     }
 
-    void onCollisionEnter2D(Collision2D coll)
+    void OnCollisionEnter2D(Collision2D coll)
     {
         PlayerCombatant player = Global.FindComponent<PlayerCombatant>(coll.gameObject);
         if (coll.gameObject.tag != "Player" || !player) return;

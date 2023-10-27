@@ -119,7 +119,7 @@
                 {
                     "name": "",
                     "id": "2bac254d-fd3d-4f71-bc5e-34fba4d54fb5",
-                    "path": "<Gamepad>/rightTrigger",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
@@ -130,7 +130,7 @@
                 {
                     "name": "",
                     "id": "72364804-45ae-48db-bae5-24b9268dda9c",
-                    "path": "<Gamepad>/leftTrigger",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
@@ -145,17 +145,6 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse&Keyboard",
-                    "action": "WeakFire",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "802588ae-48f8-4c5e-97c0-a9bdd8214db7",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Controller",
                     "action": "WeakFire",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -217,12 +206,23 @@
                 },
                 {
                     "name": "",
+                    "id": "802588ae-48f8-4c5e-97c0-a9bdd8214db7",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "StrongFire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "49a23d76-149c-4a5c-8054-7275cc0b4f15",
                     "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Controller",
-                    "action": "StrongFire",
+                    "action": "WeakFire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

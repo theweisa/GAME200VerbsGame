@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("References")] [Space(4)]
     public Rigidbody2D rb;
+    public PlayerCombatant combatant;
     public SpriteRenderer sprite;
     public Animator fanAnim;
     public Animator playerAnimator;
@@ -65,13 +66,16 @@ public class PlayerController : MonoBehaviour
     private bool jumped=false;
     private Vector2 fireDirection;
     [SerializeField]private bool canMove;
+    [HideInInspector] public RigidbodyConstraints2D constraints;
+    [HideInInspector] public bool dead = false;
 
     Quaternion smoothTilt;
 
     void Awake() {
-        
         rb = rb ? rb : Global.FindComponent<Rigidbody2D>(gameObject);
         coll = coll ? coll : Global.FindComponent<Collider2D>(gameObject);
+        combatant = combatant ? combatant : Global.FindComponent<PlayerCombatant>(gameObject);
+        constraints = rb.constraints;
     }
     void Start()
     {
@@ -107,7 +111,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!IsGrounded()) {
             Debug.Log("not grounded");
-            sprite.transform.rotation = Quaternion.identity;
+            sprite.transform.rotation = Quaternion.Slerp(sprite.transform.rotation, Quaternion.identity, 15f*Time.deltaTime);
             return;
         }
         RaycastHit2D hit = Physics2D.Raycast(GetBottomPoint(), -Vector2.up, minJumpDist, 1 << LayerMask.NameToLayer("Environment"));//-sprite.transform.up.normalized, 10);
@@ -117,8 +121,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("erm");
             return;
         }
-        //Debug.Log("hit");
-        Debug.Log(hit.normal);
+        //Debug.Log(hit.normal);
         float angle = Mathf.Atan2(hit.normal.x, hit.normal.y) * Mathf.Rad2Deg;
         Quaternion playerTilt = Quaternion.AngleAxis(angle, Vector3.back);
         //sprite.transform.rotation = playerTilt;
@@ -134,13 +137,14 @@ public class PlayerController : MonoBehaviour
         moveDirection = new Vector2(context.ReadValue<Vector2>().x, 0);
     }
     public void Jump(InputAction.CallbackContext context) {
-        if (!ManageAction(ActionType.Jump, context)) return;
+        if (!ManageAction(ActionType.Jump, context) || dead) return;
         if (!CanJump()) return;
         jumped = true;
         coyoteTimeTimer = 0f;
         jumpBufferTimer = jumpBuffer;
         rb.velocity = new Vector2(rb.velocity.x, 0);
         rb.AddForce(Vector2.up*jumpForce, ForceMode2D.Impulse);
+        combatant.Play("jump", 0.5f, 0.1f);
     }
 
     public void FireDirection(InputAction.CallbackContext context) {
@@ -171,6 +175,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void Blow(bool strong) {
+        if (dead) return;
         //Vector2 fireDirection = Global.GetRelativeMousePosition(transform.position);
         // can cancel all momentum from other direction if not blow stunned
         if (blowStunTimer <= 0) {
@@ -186,9 +191,11 @@ public class PlayerController : MonoBehaviour
         Quaternion rotation = Quaternion.AngleAxis(Mathf.Atan2(fireDirection.y, fireDirection.x) * Mathf.Rad2Deg, Vector3.forward);
         WindProjectile proj;
         if (strong) {
+            combatant.Play("blow", 0.5f, 0.1f);
             proj = Instantiate(strongWindProjectile, (Vector2)transform.position+fireDirection*fireDist, rotation, GameManager.Instance.instanceManager).GetComponent<WindProjectile>();
         }
         else {
+            combatant.Play("blow", 1f, 0.1f);
             proj = Instantiate(weakWindProjectile, (Vector2)transform.position+fireDirection*fireDist, rotation, GameManager.Instance.instanceManager).GetComponent<WindProjectile>();
         }
         //WindProjectile proj = Instantiate(windProjectile, (Vector2)transform.position+fireDirection*fireDist, rotation, GameManager.Instance.instanceManager).GetComponent<WindProjectile>();
@@ -232,7 +239,7 @@ public class PlayerController : MonoBehaviour
         fanAnim.transform.localPosition = offset;*/
         float angle = Mathf.Atan2(-fireDirection.y, -fireDirection.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        fanAnim.transform.rotation = rotation;
+        fanAnim.transform.rotation = Quaternion.Slerp(fanAnim.transform.rotation, rotation, 50f*Time.deltaTime);;
     }
     void UpdatePhysics() {
         rb.velocity = velocityCap > 0 ? Vector2.ClampMagnitude(rb.velocity, velocityCap) : rb.velocity;
@@ -245,7 +252,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     void UpdateGrounded() {
-        playerAnimator.Play("playerIdle");
+        if (!dead) playerAnimator.Play("playerIdle");
         // if still able to jump
         if (jumpBufferTimer <= 0f) {
             playerAnimator.SetBool("grounded", true);

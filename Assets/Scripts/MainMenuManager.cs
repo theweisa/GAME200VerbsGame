@@ -11,6 +11,7 @@ public class MainMenuManager : MonoBehaviour
     void Start()
     {
         tutorialPanel.SetActive(false);
+        AudioManager.Instance.Play("title");
     }
 
     // Update is called once per frame
@@ -21,11 +22,13 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartTutorial()
     {
+        AudioManager.Instance.Play("select", 1f, 0.1f);
         tutorialPanel.SetActive(true);
     }
 
     public void EndToutorial()
     {
+        AudioManager.Instance.Play("select", 1f, 0.1f);
         tutorialPanel.SetActive(false );
         eventSystem.GetComponent<EventSystem>().SetSelectedGameObject(firstSelectedButton);
     }

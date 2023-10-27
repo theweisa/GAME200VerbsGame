@@ -5,6 +5,7 @@ using Cinemachine;
 
 public class CameraManager : UnitySingleton<CameraManager>
 {
+    public CinemachineVirtualCamera currentCamera;
     public CinemachineTargetGroup targetGroup;
     // Start is called before the first frame update
     public override void Awake()
@@ -22,6 +23,13 @@ public class CameraManager : UnitySingleton<CameraManager>
                 targetGroup.m_Targets.SetValue(target, i);
                 return;
             }
+        }
+    }
+        
+    public void StartShake(float str=1f, float dur=1f, float freq=1f, bool perma=false) {
+        CameraShake shake = currentCamera.GetComponent<CameraShake>();
+        if (shake) {
+            shake.StartShake(str, dur, freq, perma);
         }
     }
 

@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerCombatant : BaseDamageable
 {
+    public List<AudioManager.AudioObject> audioObjects = new List<AudioManager.AudioObject>();
     public Transform playerSpawnsRef;
     public GameObject playerID;
     public int id;
@@ -77,6 +78,11 @@ public class PlayerCombatant : BaseDamageable
         return totalPoints;
     }
     public void SpawnPlayer() {
+        controller.dead = false;
+        controller.sprite.gameObject.SetActive(true);
+        controller.fanAnim.gameObject.SetActive(true);
+        Global.Appear(controller.fanAnim.GetComponent<SpriteRenderer>(), 0.2f);
+        Global.Appear(controller.sprite, 0.2f);
         if (remainingLives <= 0)
         {
             gameObject.SetActive(false);
@@ -86,18 +92,21 @@ public class PlayerCombatant : BaseDamageable
             return;
         }
        
-        
+        rb.constraints = controller.constraints;
         transform.position = spawnLocation;
-        rb.velocity = Vector3.zero;
         controller.windMeter.ResetMeter();
     }
 
     public override IEnumerator OnDeath()
     {
         Debug.Log("player die");
+        controller.dead = true;
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        controller.playerAnimator.Play("playerDeath");
         remainingLives--;
         playerLivesUI[remainingLives].SetActive(false);
         falls++;
+        Play("death", 1f, 0.1f);
         yield return base.OnDeath();
         if (lastPlayerHitBy)
         {
@@ -107,7 +116,12 @@ public class PlayerCombatant : BaseDamageable
             Debug.Log($"Player {id} is hit by player {lastPlayerHitBy.id}");
             lastPlayerHitBy = null;
         }
+        CameraManager.Instance.StartShake(10, 1f, 10);
         UIManager.Instance.gameUIPanel.SetPointText(GetTotalPoints(), id);
+        Global.Fade(controller.fanAnim.GetComponent<SpriteRenderer>(), 0.15f);
+        yield return new WaitForSeconds(0.3f);
+        controller.sprite.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.7f);
         SpawnPlayer();
     }
 
@@ -123,5 +137,13 @@ public class PlayerCombatant : BaseDamageable
         if (!collision.gameObject.CompareTag("Player")) return;
         lastPlayerHitBy = collision.gameObject.GetComponent<PlayerCombatant>();
         
+    }
+    public void Play(string key, float pitch=1, float pitchOffset=0f) {
+        foreach (AudioManager.AudioObject obj in audioObjects) {
+            if (obj.id == key) {
+                obj.Play(pitch, pitchOffset);
+                return;
+            }
+        }
     }
 }

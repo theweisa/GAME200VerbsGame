@@ -61,6 +61,8 @@ public class MultiplayerManager : UnitySingleton<MultiplayerManager>
     public void InitStartLevelPrefab(Transform levelParent)
     {
         Instantiate(currentLevelManager.gameObject, levelParent);
+        AudioManager.Instance.Stop("title");
+        AudioManager.Instance.Play("game");
         foreach (var player in players)
         {
             CameraManager.Instance.AddGroupTarget(player.transform, 2, 13);
