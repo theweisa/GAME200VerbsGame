@@ -162,7 +162,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6318873813470365523, guid: 607bfe3cad80f9e4487583ac3716e4de, type: 3}
       propertyPath: m_LinearDrag
-      value: 3
+      value: 2.5
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3674635367751043948, guid: 607bfe3cad80f9e4487583ac3716e4de, type: 3}
@@ -204,7 +204,7 @@ MonoBehaviour:
   damage: 0
   knockbackForce: 15
   projectileSpeed: 50
-  lifetime: 2
+  lifetime: 1.5
   velocityCap: 100
   destroyOnContact: 0
   direction: {x: 0, y: 0}
