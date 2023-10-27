@@ -83,14 +83,14 @@ public class PlayerCombatant : BaseDamageable
         controller.fanAnim.gameObject.SetActive(true);
         Global.Appear(controller.fanAnim.GetComponent<SpriteRenderer>(), 0.2f);
         Global.Appear(controller.sprite, 0.2f);
-        //if (remainingLives <= 0)
-        //{
-        //    gameObject.SetActive(false);
-        //    MultiplayerManager.Instance.players.Remove(gameObject);
-        //    OnGameOver();
+        if (remainingLives <= 0)
+        {
+            gameObject.SetActive(false);
+            MultiplayerManager.Instance.players.Remove(gameObject);
+            OnGameOver();
 
-        //    return;
-        //}
+            return;
+        }
        
         rb.constraints = controller.constraints;
         transform.position = spawnLocation;
@@ -104,8 +104,8 @@ public class PlayerCombatant : BaseDamageable
             controller.dead = true;
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
             controller.playerAnimator.Play("playerDeath");
-           // remainingLives--;
-            //playerLivesUI[remainingLives].SetActive(false);
+            remainingLives--;
+            playerLivesUI[remainingLives].SetActive(false);
             falls++;
             Play("death", 1f, 0.1f);
             yield return base.OnDeath();

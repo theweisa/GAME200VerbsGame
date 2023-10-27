@@ -50,7 +50,7 @@ public class WindProjectile : BaseDamageSource
         PlayerCombatant hitPlayer = dmgObj.gameObject.GetComponent<PlayerCombatant>();
         PlayerCombatant hostPlayer = hostDamageable.gameObject.GetComponent<PlayerCombatant>();
         if (hitPlayer) {
-            StartCoroutine(hitPlayer.controller.windMeter.DepleteMeter(meterCost*1.5f));
+            //StartCoroutine(hitPlayer.controller.windMeter.DepleteMeter(meterCost*1.5f));
             hitPlayer.lastPlayerHitBy = hostPlayer;
             hitPlayer.controller.BlowStun();
         }
