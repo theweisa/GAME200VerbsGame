@@ -27,6 +27,6 @@ public class LevelSlotUI : MonoBehaviour,ISubmitHandler,IPointerClickHandler
     public void SetSlotIndex()
     {
         SelectSceneManager.Instance.selectLevelUIPanel.SetCurrentSelectedSlot(this);
-
+        MultiplayerManager.Instance.SetPlayerEventSystemFirstSelection(SelectSceneManager.Instance.selectLevelUIPanel.UIFirstSelection);
     }
 }

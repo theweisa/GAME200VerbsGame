@@ -12,6 +12,7 @@ public class UIManager : UnitySingleton<UIManager>
     public GameObject tutorailFirtsSelection;
     public GameObject mainsceneFirstSelection;
     public GameObject winPanelFirstSelection;
+
     // Start is called before the first frame update
 
     private void Start()

@@ -122,6 +122,7 @@ MonoBehaviour:
   - {fileID: 7598369505425521999}
   - {fileID: 6827863829814891646}
   playerSlotsParent: {fileID: 1675131458499859710}
+  UIFirstSelection: {fileID: 7029396251382089637}
 --- !u!1 &2311936607648350523
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,7 +443,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
