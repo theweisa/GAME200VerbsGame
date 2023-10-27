@@ -187,7 +187,8 @@ public class PlayerController : MonoBehaviour
     {
         //Debug.Log("Open Menu");
         if (GameManager.Instance.isGameEnd) return;
-        UIManager.Instance.pauseMenuPanel.gameObject.SetActive(true);
+
+        UIManager.Instance.StartPauseMenu();
 
     }
     public void BlowStun() {

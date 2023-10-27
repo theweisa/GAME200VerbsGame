@@ -7,7 +7,7 @@ public class UIManager : UnitySingleton<UIManager>
     public GameUIPanelController gameUIPanel;
     public PauseMenuPanelController pauseMenuPanel;
     public WinPanelController winPanel;
-    public GameObject tutorialPanel;
+    public TutorialPanelController tutorialPanel;
     public GameObject menuFirstSelection;
     public GameObject tutorailFirtsSelection;
     public GameObject mainsceneFirstSelection;
@@ -16,7 +16,7 @@ public class UIManager : UnitySingleton<UIManager>
 
     private void Start()
     {
-        tutorialPanel.SetActive(false);
+        tutorialPanel.gameObject.SetActive(false);
         for (int i = 0; i< MultiplayerManager.Instance.players.Count; i++)
         {
             gameUIPanel.EnablePointText(i);
@@ -29,15 +29,20 @@ public class UIManager : UnitySingleton<UIManager>
         panel.SetActive(state);
     }
 
+    public void StartPauseMenu()
+    {
+        pauseMenuPanel.gameObject.SetActive(true);
+        GameManager.Instance.TogglePause(true);
+    }
     public void StartTutroial()
     {
         MultiplayerManager.Instance.SetPlayerEventSystemFirstSelection(tutorailFirtsSelection);
-        tutorialPanel.SetActive(true);
+        tutorialPanel.gameObject.SetActive(true);
     }
 
     public void StopTutroial()
     {
-        tutorialPanel.SetActive(false);
+        tutorialPanel.gameObject.SetActive(false);
         MultiplayerManager.Instance.SetPlayerEventSystemFirstSelection(menuFirstSelection);
     }
 
