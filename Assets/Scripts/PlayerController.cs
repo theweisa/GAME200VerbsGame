@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [Header("References")] [Space(4)]
     public Rigidbody2D rb;
     public SpriteRenderer sprite;
+    public Animator fanAnim;
     public Animator playerAnimator;
     public Collider2D coll;
     public GameObject weakWindProjectile;
@@ -105,26 +106,28 @@ public class PlayerController : MonoBehaviour
     void AlignRampPlayer()
     {
         if (!IsGrounded()) {
-            transform.rotation = Quaternion.identity;
+            Debug.Log("not grounded");
+            sprite.transform.rotation = Quaternion.identity;
             return;
         }
-        RaycastHit2D hit = Physics2D.Raycast(GetBottomPoint(), -Vector2.up, 3);
+        RaycastHit2D hit = Physics2D.Raycast(GetBottomPoint(sprite.transform.rotation.eulerAngles.z-90), -sprite.transform.up.normalized, 10);//-sprite.transform.up.normalized, 10);
+        Debug.DrawRay(GetBottomPoint(), -sprite.transform.up.normalized, Color.green);
         if (!hit) {
             Debug.Log("erm");
             return;
         }
-        Debug.Log("hit");
-        Quaternion playerTilt = Quaternion.FromToRotation(Vector2.up, hit.normal);
-        // if the angles are, offset from 0/180, 
-        // ie on the left, -45 -> 45 is non rotate range
-        // or: + 360 % 360, so 315 && 45
-        // on the other end, 135 -> 225. 
-        float angle = (playerTilt.eulerAngles.z+360)%360;
+        //Debug.Log("hit");
+        Debug.Log(hit.normal);
+        //Quaternion playerTilt = Quaternion.FromToRotation(Vector2.up, hit.normal);
+        //Quaternion.AngleAxis()
+        float angle = Mathf.Atan2(hit.normal.x, hit.normal.y) * Mathf.Rad2Deg;
+        Quaternion playerTilt = Quaternion.AngleAxis(angle, Vector3.back);
         if (!(angle > minRotateAngle && angle < 360-minRotateAngle) && !(angle > 180-minRotateAngle && angle < 180+minRotateAngle)) {
         //if (playerTilt.eulerAngles.z > minRotateAngle || playerTilt.eulerAngles.z > 180+minRotateAngle) {
-            Debug.Log($"tilt: {playerTilt.eulerAngles}");
+            //Debug.Log($"tilt: {playerTilt.eulerAngles}");
+            sprite.transform.rotation = Quaternion.Slerp(sprite.transform.rotation, playerTilt, 15f*Time.deltaTime);
             Debug.Log($"rotate by {angle}");
-            transform.rotation = playerTilt;
+            //sprite.transform.rotation = playerTilt;
         }
     }
     public void ToggleMovement(bool state)
@@ -185,6 +188,7 @@ public class PlayerController : MonoBehaviour
         if (fireDirection.y < 0) {
             jumped=false;
         }
+        fanAnim.Play("fanSwing", -1, 0f);
         Quaternion rotation = Quaternion.AngleAxis(Mathf.Atan2(fireDirection.y, fireDirection.x) * Mathf.Rad2Deg, Vector3.forward);
         WindProjectile proj;
         if (strong) {
@@ -219,6 +223,11 @@ public class PlayerController : MonoBehaviour
     }
     void UpdateFireDirection() {
         sprite.flipX = fireDirection.x < 0;
+        /*Vector2 offset = -fireDirection;
+        fanAnim.transform.localPosition = offset;*/
+        float angle = Mathf.Atan2(-fireDirection.y, -fireDirection.x) * Mathf.Rad2Deg;
+        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        fanAnim.transform.rotation = rotation;
     }
     void UpdatePhysics() {
         rb.velocity = velocityCap > 0 ? Vector2.ClampMagnitude(rb.velocity, velocityCap) : rb.velocity;
@@ -283,8 +292,8 @@ public class PlayerController : MonoBehaviour
         if (context.started) return true;
         return false;
     }
-    private Vector2 GetBottomPoint() {
-        float angle = transform.rotation.eulerAngles.z-90;
+    private Vector2 GetBottomPoint(float angle=-1) {
+        if (angle < 0) angle = transform.rotation.eulerAngles.z-90;
         Vector2 offset = new Vector2(
             coll.bounds.extents.x * Mathf.Cos(Mathf.Deg2Rad * angle),
             coll.bounds.extents.y * Mathf.Sin(Mathf.Deg2Rad * angle)

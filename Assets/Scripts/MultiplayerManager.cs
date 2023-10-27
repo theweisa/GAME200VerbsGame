@@ -47,6 +47,7 @@ public class MultiplayerManager : UnitySingleton<MultiplayerManager>
             PlayerController playerController = player.GetComponent<PlayerController>();
             playerController.ToggleMovement(true);
             playerCombatant.InitPlayer(id);
+            CameraManager.Instance.AddGroupTarget(playerCombatant.transform, 2, 13);
             
             id++;
         }
@@ -60,6 +61,10 @@ public class MultiplayerManager : UnitySingleton<MultiplayerManager>
     public void InitStartLevelPrefab(Transform levelParent)
     {
         Instantiate(currentLevelManager.gameObject, levelParent);
+        foreach (var player in players)
+        {
+            CameraManager.Instance.AddGroupTarget(player.transform, 2, 13);
+        }
     }
     public bool HasEnoughPlayer()
     {

@@ -44,7 +44,7 @@ public class PlayerCombatant : BaseDamageable
 
     }
 
-    public void InitPlayer(int newId/*, PlayerInput input*/) {
+    public void InitPlayer(int newId) {
 
         // needs to be changed to happen only when in level scene
 
@@ -57,7 +57,6 @@ public class PlayerCombatant : BaseDamageable
 
         //MultiplayerManager.Instance.AddPlayerPrefab(gameObject);
         //UIManager.Instance.selectPlayerUIPanel.ActivateSlot(id);
-
         //controller.input = input;
         TextMeshPro playerIDText = playerID.GetComponent<TextMeshPro>();
         playerIDText.text = "P" + id.ToString();
