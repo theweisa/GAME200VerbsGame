@@ -21,9 +21,5 @@ public class PauseMenuPanelController : MonoBehaviour
     {
         MultiplayerManager.Instance.SetPlayerEventSystemFirstSelection(UIManager.Instance.mainsceneFirstSelection);
     }
-    public void ExitPauseMenu()
-    {
-        GameManager.Instance.TogglePause(false);
-        gameObject.SetActive(false);
-    }
+
 }

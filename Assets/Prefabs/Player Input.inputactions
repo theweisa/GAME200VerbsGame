@@ -186,7 +186,7 @@
                     "name": "",
                     "id": "a12af0cb-fbbc-47b1-b941-6c30a1dced36",
                     "path": "<Keyboard>/tab",
-                    "interactions": "",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": "Mouse&Keyboard",
                     "action": "Menu",

@@ -183,12 +183,22 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(windMeter.DepleteMeter(proj.meterCost));
     }
 
-    public void OpenPauseMenu()
+    public void OpenPauseMenu(InputAction.CallbackContext context)
     {
-        //Debug.Log("Open Menu");
+        if (!ManageAction(ActionType.OpenMenu, context)) return;
+        Debug.Log("Open Menu");
         if (GameManager.Instance.isGameEnd) return;
 
+
+        if (UIManager.Instance.pauseMenuPanel.gameObject.activeSelf)
+        {
+            UIManager.Instance.StopPauseMenu();
+            return;
+        }
+
         UIManager.Instance.StartPauseMenu();
+
+
 
     }
     public void BlowStun() {

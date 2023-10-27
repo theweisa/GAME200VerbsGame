@@ -31,8 +31,15 @@ public class UIManager : UnitySingleton<UIManager>
 
     public void StartPauseMenu()
     {
+        if (pauseMenuPanel.gameObject.activeSelf) return;
         pauseMenuPanel.gameObject.SetActive(true);
         GameManager.Instance.TogglePause(true);
+    }
+
+    public void StopPauseMenu()
+    {
+        GameManager.Instance.TogglePause(false);
+        pauseMenuPanel.gameObject.SetActive(false);
     }
     public void StartTutroial()
     {
