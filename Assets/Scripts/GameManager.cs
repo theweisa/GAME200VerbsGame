@@ -7,8 +7,8 @@ public class GameManager : UnitySingleton<GameManager>
 {
     //public bool ShouldCheckPlayerNumbers = true;
     public Transform instanceManager;
-    public PlayerManager playerManager;
     public Transform levelParent;
+    public bool isGameEnd = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +28,9 @@ public class GameManager : UnitySingleton<GameManager>
 
     public void StartGame()
     {
+        TogglePause(false);
         //GameManager.Instance.TogglePause(true);
+        isGameEnd = false;
         SceneManager.LoadScene(1);
 
     }
@@ -57,5 +59,14 @@ public class GameManager : UnitySingleton<GameManager>
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void CheckGameState()
+    {
+        if (MultiplayerManager.Instance.players.Count != 1) return;
+
+        Debug.Log(MultiplayerManager.Instance.players[0].name + "wins");
+        isGameEnd = true;
+        UIManager.Instance.StartWinPanel();
     }
 }

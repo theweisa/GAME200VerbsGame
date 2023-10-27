@@ -81,7 +81,9 @@ public class PlayerCombatant : BaseDamageable
         if (remainingLives <= 0)
         {
             gameObject.SetActive(false);
-            Debug.Log($"Player {id} is Game Over");
+            MultiplayerManager.Instance.players.Remove(gameObject);
+            OnGameOver();
+
             return;
         }
        
@@ -113,7 +115,7 @@ public class PlayerCombatant : BaseDamageable
     public void OnGameOver()
     {
         Debug.Log($"Player {id} is Game Over");
-
+        GameManager.Instance.CheckGameState();
         return;
     }
 

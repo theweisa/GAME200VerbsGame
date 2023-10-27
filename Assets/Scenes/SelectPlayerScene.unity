@@ -802,6 +802,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 706830134}
     - target: {fileID: 845234915122649205, guid: e947f2d1aa94c0949aa04a573b1c1164, type: 3}
+      propertyPath: shouldCheckPlayerNumber
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 845234915122649205, guid: e947f2d1aa94c0949aa04a573b1c1164, type: 3}
       propertyPath: playerMenuFirstSelection
       value: 
       objectReference: {fileID: 482716915}
