@@ -71,6 +71,7 @@ public class GameManager : UnitySingleton<GameManager>
         AudioManager.Instance.Stop("game", true);
         Debug.Log(MultiplayerManager.Instance.players[0].name + "wins");
         isGameEnd = true;
+
         UIManager.Instance.StartWinPanel();
     }
 }
