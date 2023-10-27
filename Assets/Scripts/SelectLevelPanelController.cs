@@ -15,6 +15,8 @@ public class SelectLevelPanelController : MonoBehaviour
     {
         currentSelectedSlot = slot;
         Debug.Log("Current Slot: " + currentSelectedSlot.name + ",index: " + currentSelectedSlot.slotIndex);
+        //InitStartLevel();
+        //GameManager.Instance.StartLevel();
     }
     public LevelSlotUI GetCurrentSelectedSlot()
     {
