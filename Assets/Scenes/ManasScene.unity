@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 40885951}
   - component: {fileID: 40885950}
   - component: {fileID: 40885949}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: SmallBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2487,17 +2487,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a308c8c2f71c00543b16e149a5518633, type: 3}
---- !u!114 &898494511 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6994594025745829478, guid: a308c8c2f71c00543b16e149a5518633, type: 3}
-  m_PrefabInstance: {fileID: 898494510}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30bbdf3e86a44744c8f93d618361dc18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &898494512 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7563432859658436766, guid: a308c8c2f71c00543b16e149a5518633, type: 3}
@@ -4355,9 +4344,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3763edc8c0cbf33409bd793dfa0056f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectPlayerUIPanel: {fileID: 898494511}
   gameUIPanel: {fileID: 1950171554}
-  ShouldCheckPlayerNumbers: 0
+  pauseMenuPanel: {fileID: 0}
+  tutorialPanel: {fileID: 0}
+  menuFirstSelection: {fileID: 0}
+  tutorailFirtsSelection: {fileID: 0}
+  mainscenFirstSelection: {fileID: 0}
 --- !u!4 &1840525637
 Transform:
   m_ObjectHideFlags: 0
@@ -4741,6 +4733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a3bb418c635fc47b3904a4befb82e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPointTexts: []
 --- !u!114 &1950171555
 MonoBehaviour:
   m_ObjectHideFlags: 0

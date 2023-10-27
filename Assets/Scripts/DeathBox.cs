@@ -25,4 +25,11 @@ public class DeathBox : MonoBehaviour
         if (coll.gameObject.tag != "Player" || !player) return;
         StartCoroutine(player.OnDeath());
     }
+
+    void onCollisionEnter2D(Collision2D coll)
+    {
+        PlayerCombatant player = Global.FindComponent<PlayerCombatant>(coll.gameObject);
+        if (coll.gameObject.tag != "Player" || !player) return;
+        StartCoroutine(player.OnDeath());
+    }
 }
