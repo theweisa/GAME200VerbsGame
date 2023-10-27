@@ -110,8 +110,8 @@ public class PlayerController : MonoBehaviour
             sprite.transform.rotation = Quaternion.identity;
             return;
         }
-        RaycastHit2D hit = Physics2D.Raycast(GetBottomPoint(sprite.transform.rotation.eulerAngles.z-90), -sprite.transform.up.normalized, 10);//-sprite.transform.up.normalized, 10);
-        Debug.DrawRay(GetBottomPoint(), -sprite.transform.up.normalized, Color.green);
+        RaycastHit2D hit = Physics2D.Raycast(GetBottomPoint(true), -sprite.transform.up, 10);//-sprite.transform.up.normalized, 10);
+        Debug.DrawRay(GetBottomPoint(), -sprite.transform.up, Color.green);
         if (!hit) {
             Debug.Log("erm");
             return;
@@ -122,13 +122,14 @@ public class PlayerController : MonoBehaviour
         //Quaternion.AngleAxis()
         float angle = Mathf.Atan2(hit.normal.x, hit.normal.y) * Mathf.Rad2Deg;
         Quaternion playerTilt = Quaternion.AngleAxis(angle, Vector3.back);
-        if (!(angle > minRotateAngle && angle < 360-minRotateAngle) && !(angle > 180-minRotateAngle && angle < 180+minRotateAngle)) {
+        sprite.transform.rotation = Quaternion.Slerp(sprite.transform.rotation, playerTilt, 15f*Time.deltaTime);
+        /*if (!(angle > minRotateAngle && angle < 360-minRotateAngle) && !(angle > 180-minRotateAngle && angle < 180+minRotateAngle)) {
         //if (playerTilt.eulerAngles.z > minRotateAngle || playerTilt.eulerAngles.z > 180+minRotateAngle) {
             //Debug.Log($"tilt: {playerTilt.eulerAngles}");
             sprite.transform.rotation = Quaternion.Slerp(sprite.transform.rotation, playerTilt, 15f*Time.deltaTime);
             Debug.Log($"rotate by {angle}");
             //sprite.transform.rotation = playerTilt;
-        }
+        }*/
     }
     public void ToggleMovement(bool state)
     {
@@ -292,8 +293,9 @@ public class PlayerController : MonoBehaviour
         if (context.started) return true;
         return false;
     }
-    private Vector2 GetBottomPoint(float angle=-1) {
-        if (angle < 0) angle = transform.rotation.eulerAngles.z-90;
+    private Vector2 GetBottomPoint(bool imSoSorry=false) {
+        float angle = coll.transform.rotation.eulerAngles.z-90f;
+        if (imSoSorry) angle = sprite.transform.rotation.eulerAngles.z-90;
         Vector2 offset = new Vector2(
             coll.bounds.extents.x * Mathf.Cos(Mathf.Deg2Rad * angle),
             coll.bounds.extents.y * Mathf.Sin(Mathf.Deg2Rad * angle)

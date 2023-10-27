@@ -480,6 +480,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4565366014265838585}
   - component: {fileID: 8095707129505713228}
+  - component: {fileID: 7447653456643996374}
   - component: {fileID: 1712433157382054058}
   - component: {fileID: 427439996945580758}
   m_Layer: 0
@@ -534,6 +535,41 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!58 &7447653456643996374
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 690592198474284785}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.77}
+  serializedVersion: 2
+  m_Radius: 1.04
 --- !u!114 &1712433157382054058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -550,7 +586,7 @@ MonoBehaviour:
   sprite: {fileID: 4510376058030336992}
   fanAnim: {fileID: 1421498699713042325}
   playerAnimator: {fileID: 4458281619969734698}
-  coll: {fileID: 7811896303398424846}
+  coll: {fileID: 7447653456643996374}
   weakWindProjectile: {fileID: 310256337826347110, guid: 48a596f6bca515e46a9319afa111bf3b, type: 3}
   strongWindProjectile: {fileID: 310256337826347110, guid: 47cb2779ac2c2264eafeaecbf356f674, type: 3}
   windMeter: {fileID: 6941635912180526477}
@@ -649,7 +685,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4293816661723943736}
-  - component: {fileID: 7811896303398424846}
   m_Layer: 0
   m_Name: SkateBoard
   m_TagString: Untagged
@@ -675,41 +710,6 @@ Transform:
   - {fileID: 7947194584798799668}
   m_Father: {fileID: 4072047080476780507}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &7811896303398424846
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1798650618754738447}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.77}
-  serializedVersion: 2
-  m_Radius: 1.04
 --- !u!1 &3900833440456078615
 GameObject:
   m_ObjectHideFlags: 0
