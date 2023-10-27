@@ -99,30 +99,32 @@ public class PlayerCombatant : BaseDamageable
 
     public override IEnumerator OnDeath()
     {
-        Debug.Log("player die");
-        controller.dead = true;
-        rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        controller.playerAnimator.Play("playerDeath");
-        remainingLives--;
-        playerLivesUI[remainingLives].SetActive(false);
-        falls++;
-        Play("death", 1f, 0.1f);
-        yield return base.OnDeath();
-        if (lastPlayerHitBy)
-        {
-            lastPlayerHitBy.kos++;
-            //lastPlayerHitBy.points++;
-           UIManager.Instance.gameUIPanel.SetPointText(lastPlayerHitBy.GetTotalPoints(), lastPlayerHitBy.id);
-            Debug.Log($"Player {id} is hit by player {lastPlayerHitBy.id}");
-            lastPlayerHitBy = null;
+        if (!controller.dead) {
+            Debug.Log("player die");
+            controller.dead = true;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+            controller.playerAnimator.Play("playerDeath");
+            remainingLives--;
+            playerLivesUI[remainingLives].SetActive(false);
+            falls++;
+            Play("death", 1f, 0.1f);
+            yield return base.OnDeath();
+            if (lastPlayerHitBy)
+            {
+                lastPlayerHitBy.kos++;
+                //lastPlayerHitBy.points++;
+            UIManager.Instance.gameUIPanel.SetPointText(lastPlayerHitBy.GetTotalPoints(), lastPlayerHitBy.id);
+                Debug.Log($"Player {id} is hit by player {lastPlayerHitBy.id}");
+                lastPlayerHitBy = null;
+            }
+            CameraManager.Instance.StartShake(10, 1f, 10);
+            UIManager.Instance.gameUIPanel.SetPointText(GetTotalPoints(), id);
+            Global.Fade(controller.fanAnim.GetComponent<SpriteRenderer>(), 0.15f);
+            yield return new WaitForSeconds(0.3f);
+            controller.sprite.gameObject.SetActive(false);
+            yield return new WaitForSeconds(0.7f);
+            SpawnPlayer();   
         }
-        CameraManager.Instance.StartShake(10, 1f, 10);
-        UIManager.Instance.gameUIPanel.SetPointText(GetTotalPoints(), id);
-        Global.Fade(controller.fanAnim.GetComponent<SpriteRenderer>(), 0.15f);
-        yield return new WaitForSeconds(0.3f);
-        controller.sprite.gameObject.SetActive(false);
-        yield return new WaitForSeconds(0.7f);
-        SpawnPlayer();
     }
 
     public void OnGameOver()
