@@ -6,6 +6,7 @@ public class BaseDamageSource : MonoBehaviour
 {
     public List<BaseDamageable> contactedDamageables = new List<BaseDamageable>();
     public Rigidbody2D rb;
+    public SpriteRenderer sprite;
     public float damage;
     public float knockbackForce;
     public float projectileSpeed;

@@ -200,6 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contactedDamageables: []
   rb: {fileID: 0}
+  sprite: {fileID: 5972876502363738958}
   damage: 0
   knockbackForce: 30
   projectileSpeed: 25

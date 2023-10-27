@@ -58,4 +58,11 @@ public class WindProjectile : BaseDamageSource
             hostPlayer.controller.windMeter.ResetRegenTimer();
         }
     }
+
+    public override IEnumerator OnDeath() {
+        LeanTween.value(
+            gameObject, (float val)=>{Global.SetAlpha(gameObject, val);}, sprite.color.a, 0, 0.2f
+        ).setOnComplete(()=>{Destroy(gameObject);});
+        yield return null;
+    }
 }
