@@ -30,5 +30,11 @@ public class SelectSceneManager : UnitySingleton<SelectSceneManager>
     }
 
 
+    public void BackToSelectPlayer()
+    {
+        selectLevelUIPanel.gameObject.SetActive(false);
+        MultiplayerManager.Instance.SetPlayerEventSystemFirstSelection(inputManager.playerMenuFirstSelection);
+        selectPlayerUIPanel.gameObject.SetActive(true);
 
+    }
 }

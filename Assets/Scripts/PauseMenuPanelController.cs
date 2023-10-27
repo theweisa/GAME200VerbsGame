@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : UnitySingleton<PlayerManager>
+public class PauseMenuPanelController : MonoBehaviour
 {
-    public List<GameObject> players = new List<GameObject>();
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -16,4 +16,10 @@ public class PlayerManager : UnitySingleton<PlayerManager>
     {
         
     }
+
+    public void OnEnable()
+    {
+        MultiplayerManager.Instance.SetPlayerEventSystemFirstSelection(UIManager.Instance.mainsceneFirstSelection);
+    }
+
 }

@@ -81,6 +81,7 @@ public class MultiplayerManager : UnitySingleton<MultiplayerManager>
         foreach (var player in players)
         {
             PlayerController playerController = player.GetComponent<PlayerController>();
+
             playerController.eventSystem.SetSelectedGameObject(null);
             playerController.eventSystem.SetSelectedGameObject(obj);
         }

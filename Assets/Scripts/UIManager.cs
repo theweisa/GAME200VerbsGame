@@ -6,15 +6,18 @@ public class UIManager : UnitySingleton<UIManager>
 {
     public GameUIPanelController gameUIPanel;
     public PauseMenuPanelController pauseMenuPanel;
-    public GameObject tutorialPanel;
+    public WinPanelController winPanel;
+    public TutorialPanelController tutorialPanel;
     public GameObject menuFirstSelection;
     public GameObject tutorailFirtsSelection;
-    public GameObject mainscenFirstSelection;
+    public GameObject mainsceneFirstSelection;
+    public GameObject winPanelFirstSelection;
+
     // Start is called before the first frame update
 
     private void Start()
     {
-        tutorialPanel.SetActive(false);
+        tutorialPanel.gameObject.SetActive(false);
         for (int i = 0; i< MultiplayerManager.Instance.players.Count; i++)
         {
             gameUIPanel.EnablePointText(i);
@@ -27,18 +30,38 @@ public class UIManager : UnitySingleton<UIManager>
         panel.SetActive(state);
     }
 
+    public void StartPauseMenu()
+    {
+        if (pauseMenuPanel.gameObject.activeSelf) return;
+        pauseMenuPanel.gameObject.SetActive(true);
+        GameManager.Instance.TogglePause(true);
+    }
+
+    public void StopPauseMenu()
+    {
+        GameManager.Instance.TogglePause(false);
+        pauseMenuPanel.gameObject.SetActive(false);
+    }
     public void StartTutroial()
     {
         MultiplayerManager.Instance.SetPlayerEventSystemFirstSelection(tutorailFirtsSelection);
-        tutorialPanel.SetActive(true);
+        tutorialPanel.gameObject.SetActive(true);
     }
 
     public void StopTutroial()
     {
-        tutorialPanel.SetActive(false);
+        tutorialPanel.gameObject.SetActive(false);
         MultiplayerManager.Instance.SetPlayerEventSystemFirstSelection(menuFirstSelection);
     }
 
+    public void StartWinPanel()
+    {
+        PlayerCombatant winner = MultiplayerManager.Instance.players[0].GetComponent<PlayerCombatant>();
+        winPanel.SetWinText("P" + winner.id + " Wins!");
+        MultiplayerManager.Instance.SetPlayerEventSystemFirstSelection(winPanelFirstSelection);
+        winPanel.gameObject.SetActive(true);
+        GameManager.Instance.TogglePause(true);
+    }
     public void OnDisable()
     {
 

@@ -79,7 +79,11 @@ public class PlayerCombatant : BaseDamageable
     public void SpawnPlayer() {
         if (remainingLives <= 0)
         {
+            gameObject.SetActive(false);
+            MultiplayerManager.Instance.players.Remove(gameObject);
             OnGameOver();
+
+            return;
         }
        
         
@@ -110,7 +114,14 @@ public class PlayerCombatant : BaseDamageable
     public void OnGameOver()
     {
         Debug.Log($"Player {id} is Game Over");
-
+        GameManager.Instance.CheckGameState();
         return;
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!collision.gameObject.CompareTag("Player")) return;
+        lastPlayerHitBy = collision.gameObject.GetComponent<PlayerCombatant>();
+        
     }
 }

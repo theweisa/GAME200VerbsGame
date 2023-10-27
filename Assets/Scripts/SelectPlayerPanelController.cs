@@ -6,6 +6,7 @@ public class SelectPlayerPanelController : MonoBehaviour
 {
     public List<PlayerSlotUI> playerSlots = new List<PlayerSlotUI>();
     public Transform playerSlotsParent;
+
     // Start is called before the first frame update
 
     public void ActivateSlot(int index)

@@ -6,7 +6,7 @@ public class SelectLevelPanelController : MonoBehaviour
 {
     public List<LevelSlotUI> levelSlots = new List<LevelSlotUI>();
     public Transform levelSlotsParent;
-
+    public GameObject UIFirstSelection;
 
     private LevelSlotUI currentSelectedSlot;
     // Start is called before the first frame update
@@ -15,6 +15,8 @@ public class SelectLevelPanelController : MonoBehaviour
     {
         currentSelectedSlot = slot;
         Debug.Log("Current Slot: " + currentSelectedSlot.name + ",index: " + currentSelectedSlot.slotIndex);
+        //InitStartLevel();
+        //GameManager.Instance.StartLevel();
     }
     public LevelSlotUI GetCurrentSelectedSlot()
     {
