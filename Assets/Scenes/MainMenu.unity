@@ -488,7 +488,6 @@ RectTransform:
   m_Children:
   - {fileID: 2029293821}
   - {fileID: 983403071}
-  - {fileID: 1457356632}
   - {fileID: 1317047046}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -784,7 +783,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 448152944}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 126804992719350305, guid: 11d3fa948cfc8b54183b8c8d0166290d, type: 3}
       propertyPath: m_AnchorMax.y
@@ -880,15 +879,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3359065614942798880, guid: 11d3fa948cfc8b54183b8c8d0166290d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.3999996
+      value: 1.2762498
       objectReference: {fileID: 0}
     - target: {fileID: 3359065614942798880, guid: 11d3fa948cfc8b54183b8c8d0166290d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.3999996
+      value: 1.2762498
       objectReference: {fileID: 0}
     - target: {fileID: 3359065614942798880, guid: 11d3fa948cfc8b54183b8c8d0166290d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.3999996
+      value: 1.2762498
       objectReference: {fileID: 0}
     - target: {fileID: 3359065614942798880, guid: 11d3fa948cfc8b54183b8c8d0166290d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -920,11 +919,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3359065614942798880, guid: 11d3fa948cfc8b54183b8c8d0166290d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 400.0001
       objectReference: {fileID: 0}
     - target: {fileID: 3359065614942798880, guid: 11d3fa948cfc8b54183b8c8d0166290d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.055419922
+      value: 283.60846
       objectReference: {fileID: 0}
     - target: {fileID: 3359065614942798880, guid: 11d3fa948cfc8b54183b8c8d0166290d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1457,11 +1456,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 135747766404799661, guid: 11d3fa948cfc8b54183b8c8d0166290d, type: 3}
   m_PrefabInstance: {fileID: 946381307}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &1457356632 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3359065614942798880, guid: 11d3fa948cfc8b54183b8c8d0166290d, type: 3}
-  m_PrefabInstance: {fileID: 946381307}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1530255161 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2275128363178188717, guid: d6afb6a9eac1751498b96af79711ce57, type: 3}
@@ -1880,6 +1874,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 958718792}
+  - {fileID: 946381307}
   - {fileID: 448152944}
   - {fileID: 2066580231}
   - {fileID: 3725724172519949220}
