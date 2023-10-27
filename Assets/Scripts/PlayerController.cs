@@ -110,7 +110,7 @@ public class PlayerController : MonoBehaviour
             sprite.transform.rotation = Quaternion.identity;
             return;
         }
-        RaycastHit2D hit = Physics2D.Raycast(GetBottomPoint(), -Vector2.up, minJumpDist, LayerMask.NameToLayer("Environment"));//-sprite.transform.up.normalized, 10);
+        RaycastHit2D hit = Physics2D.Raycast(GetBottomPoint(), -Vector2.up, minJumpDist, 1 << LayerMask.NameToLayer("Environment"));//-sprite.transform.up.normalized, 10);
         //Debug.DrawRay(GetBottomPoint(), -Vector2.up, Color.green);
         //Debug.DrawRay(GetBottomPoint(), hit.normal, Color.red);
         if (!hit.collider) {

@@ -189,7 +189,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5196342353102747368, guid: c2a7c3eaf453146dbba7dc39b15c1b3d, type: 3}
       propertyPath: orthographic size
-      value: 10
+      value: 15.3
       objectReference: {fileID: 0}
     - target: {fileID: 7615625186227807691, guid: c2a7c3eaf453146dbba7dc39b15c1b3d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -835,7 +835,7 @@ PrefabInstance:
       objectReference: {fileID: 706830134}
     - target: {fileID: 845234915122649205, guid: e947f2d1aa94c0949aa04a573b1c1164, type: 3}
       propertyPath: shouldCheckPlayerNumber
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 845234915122649205, guid: e947f2d1aa94c0949aa04a573b1c1164, type: 3}
       propertyPath: playerMenuFirstSelection
